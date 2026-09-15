@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SETTINGS_KEY } from '../docs/js/domain.js';
 import { APP_KEY } from '../docs/js/config.js';
+import { SETTINGS_POPUP_HEIGHT, AUTH_POPUP_HEIGHT } from '../docs/js/popup-layout.js';
 let handlers;
 globalThis.window = { TrelloPowerUp: { initialize: value => { handlers = value; } } };
 await import('../docs/js/connector.js');
@@ -26,6 +27,17 @@ test('list menu opens exactly the selected phase', async () => {
   const t = { getContext: () => ({ list: 'phase-2' }), popup: async value => { popup = value; } };
   await handlers['list-actions'](t)[0].callback(t);
   assert.equal(popup.args.listId, 'phase-2');
+  assert.equal(popup.height, SETTINGS_POPUP_HEIGHT);
+});
+test('board settings and authorization open at their reserved content heights', async () => {
+  let popup;
+  const t = { popup: async value => { popup = value; } };
+  await handlers['board-buttons']()[0].callback(t);
+  assert.equal(popup.height, SETTINGS_POPUP_HEIGHT);
+  await handlers['show-settings'](t);
+  assert.equal(popup.height, SETTINGS_POPUP_HEIGHT);
+  await handlers['show-authorization'](t);
+  assert.equal(popup.height, AUTH_POPUP_HEIGHT);
 });
 test('authorization status only accepts a token for the current key', async () => {
   const t = { get: async (_scope, _visibility, key) => key === SETTINGS_KEY ? { appKey: 'a' } : { appKey: 'b', token: 'test' } };

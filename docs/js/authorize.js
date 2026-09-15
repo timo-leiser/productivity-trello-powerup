@@ -2,12 +2,12 @@ import { AUTH_KEY } from './domain.js';
 import { APP_KEY } from './config.js';
 import { authorizeWithPopup } from './auth-flow.js';
 import { demoClient } from './demo-client.js';
-import { popupLayout } from './popup-layout.js';
+import { popupLayout, AUTH_POPUP_HEIGHT } from './popup-layout.js';
 
 const demo = new URLSearchParams(location.search).get('demo') === '1';
 const t = demo ? demoClient() : window.TrelloPowerUp.iframe();
 const $ = id => document.getElementById(id);
-const resize = popupLayout(t, demo);
+const { resize, ready } = popupLayout(t, demo, AUTH_POPUP_HEIGHT);
 
 async function load() {
   const auth = await t.get('member', 'private', AUTH_KEY, null);
@@ -44,4 +44,4 @@ $('disconnect').addEventListener('click', async () => {
   } catch { $('auth-status').textContent = 'Verbindung konnte nicht entfernt werden. Bitte erneut versuchen.'; }
   resize();
 });
-load().catch(() => { $('auth-status').textContent = 'Öffne diese Ansicht über Productivity in deinem Trello-Board.'; });
+load().catch(() => { $('auth-status').textContent = 'Öffne diese Ansicht über Productivity in deinem Trello-Board.'; }).finally(ready);

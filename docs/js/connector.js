@@ -1,5 +1,6 @@
 import { SETTINGS_KEY, badgeFor, ruleFor } from './domain.js';
 import { createApi, credentials } from './api.js';
+import { SETTINGS_POPUP_HEIGHT, AUTH_POPUP_HEIGHT } from './popup-layout.js';
 
 const api = createApi();
 const icon = new URL('../assets/clock.svg', import.meta.url).href;
@@ -7,11 +8,11 @@ const settingsUrl = new URL('../settings.html', import.meta.url).href;
 const authUrl = new URL('../authorize.html', import.meta.url).href;
 
 function settings(t, listId) {
-  return t.popup({ title: 'Productivity · Phasen', url: settingsUrl, height: 560, args: { listId: listId ?? '' } });
+  return t.popup({ title: 'Productivity · Phasen', url: settingsUrl, height: SETTINGS_POPUP_HEIGHT, args: { listId: listId ?? '' } });
 }
 
 function authorize(t) {
-  return t.popup({ title: 'Productivity verbinden', url: authUrl, height: 470 });
+  return t.popup({ title: 'Productivity verbinden', url: authUrl, height: AUTH_POPUP_HEIGHT });
 }
 
 async function badge(t, detail = false) {
@@ -50,5 +51,5 @@ window.TrelloPowerUp.initialize({
     catch { return { authorized: false }; }
   },
   'show-authorization': authorize,
-  'on-enable': t => t.modal({ title: 'Willkommen bei Productivity', url: authUrl, height: 510 }),
+  'on-enable': t => t.modal({ title: 'Willkommen bei Productivity', url: authUrl, height: AUTH_POPUP_HEIGHT }),
 });
