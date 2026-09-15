@@ -7,7 +7,7 @@ PRODUCTIVITY — PRIVATES TRELLO-POWER-UP EINRICHTEN
 
 2. Name: Productivity
    Author: Timo Leiser
-   Email / Support: timo@leiser.me
+   Email / Support: timo@leiser.ai
    iframe Connector URL:
    https://timo-leiser.github.io/productivity-trello-powerup/connector.html
 
