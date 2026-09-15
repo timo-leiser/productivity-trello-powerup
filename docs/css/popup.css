@@ -1,0 +1,40 @@
+/* Trello supplies the controls and theme tokens; these rules only arrange our content. */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html.trello-popup { overflow: hidden; }
+body { background: var(--ds-surface, #fff); color: var(--ds-text, #172b4d); }
+[hidden] { display: none !important; }
+#app { padding: 4px 12px 12px; }
+.field { margin-bottom: 12px; min-width: 0; }
+.field label { margin: 0 0 4px; }
+.field input, .field select { width: 100%; margin: 0; height: 36px; }
+.field select { padding: 6px 10px; border: 1px solid var(--ds-border-input, #8590a2); border-radius: 3px; background: var(--ds-background-input, #fff); color: var(--ds-text, #172b4d); font: inherit; }
+.field select:focus-visible { outline: 2px solid var(--ds-border-focused, #388bff); outline-offset: 1px; }
+.thresholds { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.thresholds .field { margin-bottom: 4px; }
+.status-dot { display: inline-block; width: 8px; height: 8px; margin-right: 6px; border-radius: 50%; }
+.status-dot.orange { background: var(--ds-icon-warning, #b65c02); }
+.status-dot.red { background: var(--ds-icon-danger, #c9372c); }
+.help, details { color: var(--ds-text-subtle, #44546f); font-size: 12px; line-height: 18px; }
+p { margin: 0 0 12px; }
+.preview { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 12px 0 16px; }
+.badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 6px; border-radius: 3px; white-space: nowrap; font-size: 12px; line-height: 20px; color: var(--ds-text, #172b4d); background: var(--ds-background-neutral, #091e420f); }
+.badge::before { content: ''; width: 12px; height: 12px; background: currentColor; mask: url('../assets/clock.svg') center / contain no-repeat; }
+.badge.orange { color: var(--ds-text-warning, #974f0c); background: var(--ds-background-warning, #fff7d6); }
+.badge.red { color: var(--ds-text-danger, #ae2e24); background: var(--ds-background-danger, #ffeceb); }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.actions button { margin: 0; }
+#form-message { margin: 8px 0 0; }
+#form-message:empty { display: none; }
+.error { color: var(--ds-text-danger, #ae2e24); }
+.success-text { color: var(--ds-text-success, #216e4e); }
+footer { border-top: 1px solid var(--ds-border, #091e4224); padding-top: 12px; margin-top: 16px; }
+footer p { margin-bottom: 4px; }
+.link-button { padding: 0; margin: 0; background: none; color: var(--ds-link, #0c66e4); font-size: 12px; line-height: 20px; font-weight: 400; }
+.link-button:hover { background: none; color: var(--ds-link-pressed, #0055cc); text-decoration: underline; }
+details { margin-top: 8px; }
+summary { cursor: pointer; }
+details p { margin: 8px 0 0; }
+.auth-intro { margin-top: 4px; }
+#auth-status { font-size: 12px; line-height: 18px; }
+.auth-scope { margin-top: 16px; }

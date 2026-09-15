@@ -2,17 +2,15 @@
 <html lang="de">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="referrer" content="no-referrer">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://p.trellocdn.com; style-src 'self'; img-src 'self' data:; connect-src https://api.trello.com; object-src 'none'; base-uri 'none'">
-  <title>Trello verbinden · Productivity</title><link rel="stylesheet" href="./css/style.css">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://p.trellocdn.com; style-src 'self' 'unsafe-inline' https://p.trellocdn.com; img-src 'self' data:; connect-src https://api.trello.com; object-src 'none'; base-uri 'none'">
+  <title>Trello verbinden · Productivity</title><link rel="stylesheet" href="https://p.trellocdn.com/power-up.min.css"><link rel="stylesheet" href="./css/popup.css">
 </head>
 <body class="popup"><main id="app">
-  <header class="popup-header"><img src="./assets/mark.svg" width="36" height="36" alt=""><div><h1>Die Zeit sichtbar machen.</h1><p>Verbinde Productivity mit deiner Kartenhistorie.</p></div></header>
-  <p>Productivity liest, wann du eine Karte in ihre aktuelle Liste verschoben hast. Dafür benötigt es einmalig deine Freigabe zum Lesen in Trello.</p>
-  <p class="notice">Karteninhalte werden direkt von Trello gelesen. Sie werden nicht an einen eigenen Server oder GitHub übertragen.</p>
+  <p class="auth-intro">Verbinde Trello, um die Zeit seit dem letzten Listenwechsel einer Karte anzuzeigen.</p>
   <p id="auth-status" role="status" aria-live="polite">Verbindung wird geprüft …</p>
-  <div class="actions"><button id="authorize" class="primary" disabled>Mit Trello verbinden</button><button id="disconnect" class="quiet" hidden>Verbindung entfernen</button></div>
-  <p class="help">Nur Lesezugriff · Keine Änderungen an Karten<br>Warnschwellen werden als Power-Up-Einstellungen in Trello gespeichert.</p>
-  <p class="help">Die Freigabe gilt bis zum Widerruf. Trello erlaubt dabei das Lesen aller für dein Konto zugänglichen Boards; Productivity lädt Kartenhistorie nur aus dem gerade verwendeten Board.</p>
-  <p class="help"><a href="./privacy.html" target="_blank" rel="noopener noreferrer">Datenschutz</a> · <a href="https://trello.com/my/account" target="_blank" rel="noopener noreferrer">Trello-Kontoeinstellungen</a> · <a href="mailto:timo@leiser.ai">Support</a></p>
+  <div class="actions"><button id="authorize" class="mod-primary" disabled>Mit Trello verbinden</button><button id="disconnect" hidden>Verbindung entfernen</button></div>
+  <p class="help auth-scope">Nur Lesezugriff, bis zum Widerruf. Trello gewährt Lesen auf alle für dein Konto zugänglichen Boards. Productivity lädt nur die Kartenhistorie des geöffneten Boards.</p>
+  <details><summary>Welche Daten werden gespeichert?</summary><p class="help">Warnschwellen bleiben als Power-Up-Einstellungen in Trello. Karten werden nicht verändert. Karteninhalte werden nicht an eigene Server oder GitHub übertragen.</p></details>
+  <footer class="help"><a href="./privacy.html" target="_blank" rel="noopener noreferrer">Datenschutz</a> · <a href="https://trello.com/my/account" target="_blank" rel="noopener noreferrer">Freigabe widerrufen</a> · <a href="mailto:timo@leiser.ai">Support</a></footer>
 </main><script src="https://p.trellocdn.com/power-up.min.js"></script><script type="module" src="./js/authorize.js"></script></body>
 </html>

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { HOUR, DEFAULT_RULE, ruleFor, parseThreshold, validateRule, statusFor, formatDuration, findListEntry, badgeFor } from '../docs/js/domain.js';
+import { HOUR, DEFAULT_RULE, ruleFor, unitFor, parseThreshold, validateRule, statusFor, formatDuration, findListEntry, badgeFor } from '../docs/js/domain.js';
 
 const card = { id: 'card-1', idList: 'doing' };
 const move = (id, date, from, to) => ({ id, type: 'updateCard', date, data: { card: { id: card.id }, listBefore: { id: from }, listAfter: { id: to } } });
@@ -26,6 +26,21 @@ test('units, decimal values, zero and disabled thresholds', () => {
   assert.throws(() => validateRule({ orange: 2, red: 2 }));
   assert.throws(() => validateRule({ orange: 3, red: 2 }));
   assert.deepEqual(validateRule({ orange: null, red: 0 }), { orange: null, red: 0 });
+});
+test('legacy hour thresholds reopen in readable units without changing timing', () => {
+  const settings = { lists: { short: { orange: 0, red: 1 }, fraction: { orange: null, red: 0.01 }, off: { orange: null, red: null } } };
+  assert.equal(unitFor(settings, 'short'), 'hours');
+  assert.equal(unitFor(settings, 'fraction'), 'hours');
+  assert.equal(unitFor(settings, 'off'), 'days');
+  assert.equal(unitFor(settings, 'new'), 'days');
+  assert.deepEqual(ruleFor(settings, 'short'), { orange: 0, red: 1 });
+});
+test('saved unit preferences remain per phase and do not change badge thresholds', () => {
+  const settings = { lists: { a: { orange: 24, red: 48, unit: 'hours' }, b: { orange: 12, red: 36, unit: 'days' }, c: { orange: 1, red: 2, unit: 'unknown' } } };
+  assert.equal(unitFor(settings, 'a'), 'hours');
+  assert.equal(unitFor(settings, 'b'), 'days');
+  assert.equal(unitFor(settings, 'c'), 'hours');
+  assert.equal(statusFor(36 * HOUR, ruleFor(settings, 'b')), 'red');
 });
 test('readable elapsed time has stable minute/hour/day boundaries', () => {
   assert.equal(formatDuration(-100), '< 1 Min.');

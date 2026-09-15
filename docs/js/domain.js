@@ -8,6 +8,14 @@ export function ruleFor(settings, listId) {
   return { orange: validHours(rule.orange), red: validHours(rule.red) };
 }
 
+export function unitFor(settings, listId) {
+  const saved = settings?.lists?.[listId]?.unit;
+  if (saved === 'hours' || saved === 'days') return saved;
+  // Older settings store hours only. Avoid reopening an hour as 0.041666... days.
+  const rule = ruleFor(settings, listId);
+  return Object.values(rule).some(value => value !== null && value % 24 !== 0) ? 'hours' : 'days';
+}
+
 function validHours(value) {
   return typeof value === 'number' && Number.isFinite(value) && value >= 0 ? value : null;
 }

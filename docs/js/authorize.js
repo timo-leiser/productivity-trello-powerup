@@ -2,11 +2,12 @@ import { AUTH_KEY } from './domain.js';
 import { APP_KEY } from './config.js';
 import { authorizeWithPopup } from './auth-flow.js';
 import { demoClient } from './demo-client.js';
+import { popupLayout } from './popup-layout.js';
 
 const demo = new URLSearchParams(location.search).get('demo') === '1';
 const t = demo ? demoClient() : window.TrelloPowerUp.iframe();
 const $ = id => document.getElementById(id);
-function resize() { t.sizeTo('#app').catch(() => {}); }
+const resize = popupLayout(t, demo);
 
 async function load() {
   const auth = await t.get('member', 'private', AUTH_KEY, null);
@@ -31,7 +32,7 @@ $('authorize').addEventListener('click', async () => {
     if (typeof token !== 'string' || !token) throw new Error('Die Freigabe wurde nicht abgeschlossen.');
     await t.set('member', 'private', AUTH_KEY, { appKey: APP_KEY, token });
     await load();
-    $('auth-status').textContent = 'Verbunden. Schließe dieses Fenster und öffne den Productivity-Button, um Warnschwellen festzulegen. Phasenzeiten erscheinen innerhalb einer Minute.';
+    $('auth-status').textContent = 'Verbunden. Öffne Productivity, um Warnschwellen einzustellen. Phasenzeiten erscheinen in Kürze.';
   } catch (error) { $('auth-status').textContent = error.message || 'Verbindung nicht abgeschlossen. Bitte erneut versuchen.'; }
   finally { $('authorize').disabled = false; resize(); }
 });
