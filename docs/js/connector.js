@@ -1,11 +1,11 @@
 import { SETTINGS_KEY, badgeFor, ruleFor } from './domain.js';
 import { createApi, credentials } from './api.js';
-import { SETTINGS_POPUP_HEIGHT, AUTH_POPUP_HEIGHT } from './popup-layout.js';
+import { SETTINGS_POPUP_HEIGHT, AUTH_POPUP_HEIGHT } from './popup-layout.js?v=20260915-height';
 
 const api = createApi();
 const icon = new URL('../assets/clock.svg', import.meta.url).href;
-const settingsUrl = new URL('../settings.html', import.meta.url).href;
-const authUrl = new URL('../authorize.html', import.meta.url).href;
+const settingsUrl = new URL('../settings.html?v=20260915-height', import.meta.url).href;
+const authUrl = new URL('../authorize.html?v=20260915-height', import.meta.url).href;
 
 function settings(t, listId) {
   return t.popup({ title: 'Productivity · Phasen', url: settingsUrl, height: SETTINGS_POPUP_HEIGHT, args: { listId: listId ?? '' } });

@@ -1,7 +1,7 @@
 import { DEFAULT_RULE, HOUR, SETTINGS_KEY, parseThreshold, validateRule, ruleFor, unitFor, statusFor } from './domain.js';
 import { credentials } from './api.js';
 import { demoClient } from './demo-client.js';
-import { popupLayout, SETTINGS_POPUP_HEIGHT, AUTH_POPUP_HEIGHT } from './popup-layout.js';
+import { popupLayout, SETTINGS_POPUP_HEIGHT, AUTH_POPUP_HEIGHT } from './popup-layout.js?v=20260915-height';
 
 const demo = new URLSearchParams(location.search).get('demo') === '1';
 const t = demo ? demoClient() : window.TrelloPowerUp.iframe();
@@ -108,6 +108,6 @@ $('settings-form').addEventListener('submit', async event => {
 });
 $('open-auth').addEventListener('click', () => {
   if (demo) { location.href = './authorize.html?demo=1'; return; }
-  t.popup({ title: 'Productivity verbinden', url: './authorize.html', height: AUTH_POPUP_HEIGHT });
+  t.popup({ title: 'Productivity verbinden', url: './authorize.html?v=20260915-height', height: AUTH_POPUP_HEIGHT });
 });
 init().catch(() => { $('loading').hidden = false; $('loading').textContent = 'Einstellungen konnten nicht geladen werden. Öffne diese Ansicht über Productivity in Trello.'; }).finally(ready);
