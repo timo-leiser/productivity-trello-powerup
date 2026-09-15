@@ -1,6 +1,6 @@
 {
   "name": "productivity-trello-powerup",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "description": "Time in Trello lists with configurable warning thresholds.",

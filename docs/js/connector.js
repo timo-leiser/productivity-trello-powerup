@@ -1,5 +1,5 @@
-import { AUTH_KEY, SETTINGS_KEY, badgeFor, ruleFor } from './domain.js';
-import { createApi } from './api.js';
+import { SETTINGS_KEY, badgeFor, ruleFor } from './domain.js';
+import { createApi, credentials } from './api.js';
 
 const api = createApi();
 const icon = new URL('../assets/clock.svg', import.meta.url).href;
@@ -27,8 +27,7 @@ async function badge(t, detail = false) {
     } else result.icon = icon;
     return result;
   } catch (error) {
-    const text = error.code === 'setup' ? 'Productivity einrichten'
-      : error.code === 'auth' ? 'Productivity verbinden'
+    const text = error.code === 'auth' ? 'Productivity verbinden'
         : error.code === 'rate' ? 'Phasenzeit · später erneut'
           : 'Phasenzeit nicht verfügbar';
     return {
@@ -47,8 +46,9 @@ window.TrelloPowerUp.initialize({
   'list-actions': t => [{ text: 'Productivity · Warnschwellen …', callback: ctx => settings(ctx, t.getContext().list) }],
   'show-settings': t => settings(t),
   'authorization-status': async t => {
-    const [config, auth] = await Promise.all([t.get('board', 'shared', SETTINGS_KEY, {}), t.get('member', 'private', AUTH_KEY, null)]);
-    return { authorized: Boolean(auth?.token && config.appKey && auth.appKey === config.appKey) };
+    try { await credentials(t); return { authorized: true }; }
+    catch { return { authorized: false }; }
   },
   'show-authorization': authorize,
+  'on-enable': t => t.modal({ title: 'Willkommen bei Productivity', url: authUrl, height: 510 }),
 });

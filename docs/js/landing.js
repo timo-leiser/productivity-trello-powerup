@@ -15,8 +15,4 @@ document.getElementById('demo-settings').addEventListener('click', () => dialog.
 document.getElementById('close-demo').addEventListener('click', () => { dialog.close(); render(); });
 dialog.addEventListener('close', render);
 window.addEventListener('storage', render);
-document.getElementById('copy-url').addEventListener('click', async event => {
-  try { await navigator.clipboard.writeText(document.getElementById('connector-url').value); event.target.textContent = 'Kopiert'; }
-  catch { document.getElementById('connector-url').select(); event.target.textContent = 'Strg+C'; }
-});
 render();

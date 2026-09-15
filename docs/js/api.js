@@ -1,4 +1,5 @@
-import { AUTH_KEY, SETTINGS_KEY, findListEntry } from './domain.js';
+import { AUTH_KEY, findListEntry } from './domain.js';
+import { APP_KEY } from './config.js';
 
 const FILTER = 'updateCard:idList,createCard,copyCard,convertToCardFromCheckItem,emailCard,moveCardToBoard';
 export class TrelloError extends Error {
@@ -6,13 +7,9 @@ export class TrelloError extends Error {
 }
 
 export async function credentials(t) {
-  const [settings, auth] = await Promise.all([
-    t.get('board', 'shared', SETTINGS_KEY, {}),
-    t.get('member', 'private', AUTH_KEY, null),
-  ]);
-  if (!settings.appKey) throw new TrelloError('setup', 'Productivity zuerst einrichten.');
-  if (!auth?.token || auth.appKey !== settings.appKey) throw new TrelloError('auth', 'Bitte mit Trello verbinden.');
-  return { key: settings.appKey, token: auth.token };
+  const auth = await t.get('member', 'private', AUTH_KEY, null);
+  if (!auth?.token || auth.appKey !== APP_KEY) throw new TrelloError('auth', 'Bitte mit Trello verbinden.');
+  return { key: APP_KEY, token: auth.token };
 }
 
 // Queue starts at most 5 requests per second, below Trello's per-token rate limit.

@@ -2,17 +2,20 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createApi, credentials } from '../docs/js/api.js';
 import { SETTINGS_KEY, AUTH_KEY } from '../docs/js/domain.js';
+import { APP_KEY } from '../docs/js/config.js';
 
 const card = { id: 'abc', idList: 'doing', dateLastActivity: '2026-09-15T00:00:00Z' };
 const entry = { id: 'entry', type: 'createCard', date: '2026-09-01T00:00:00Z', data: { card: { id: card.id }, list: { id: card.idList } } };
-const client = (auth = { appKey: 'public-key', token: 'private-test-token' }, key = 'public-key') => ({ get: async (_s, _v, field) => field === SETTINGS_KEY ? { appKey: key } : field === AUTH_KEY ? auth : null });
+const client = (auth = { appKey: APP_KEY, token: 'private-test-token' }) => ({ get: async (_s, _v, field) => field === AUTH_KEY ? auth : null });
 const ok = body => ({ ok: true, status: 200, json: async () => body });
 const sleep = async () => {};
 
-test('setup and authorization are required before fetching histories', async () => {
-  await assert.rejects(credentials(client(null, '')), { code: 'setup' });
+test('requires a private member token for the fixed public app key', async () => {
   await assert.rejects(credentials(client(null)), { code: 'auth' });
   await assert.rejects(credentials(client({ appKey: 'other', token: 'x' })), { code: 'auth' });
+  assert.deepEqual(await credentials(client()), { key: APP_KEY, token: 'private-test-token' });
+  const t = { get: async (_s, _v, field) => field === SETTINGS_KEY ? { appKey: 'injected-key' } : { appKey: 'injected-key', token: 'x' } };
+  await assert.rejects(credentials(t), { code: 'auth' });
 });
 test('deduplicates simultaneous badges, caches briefly and invalidates list/activity changes', async () => {
   const requests = [];
@@ -56,7 +59,7 @@ test('revoking/changing authentication never reuses a cached authorized result',
   const api = createApi({ sleep, fetchImpl: async () => { calls++; return ok([entry]); } });
   await api.entry(client(), card);
   await assert.rejects(api.entry(client(null), card), { code: 'auth' });
-  await api.entry(client({ appKey: 'public-key', token: 'different-token' }), card);
+  await api.entry(client({ appKey: APP_KEY, token: 'different-token' }), card);
   assert.equal(calls, 2);
 });
 test('network and access failures stay distinct from unknown history', async () => {

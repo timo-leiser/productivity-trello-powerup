@@ -59,9 +59,9 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/github.ps1 api r
 
 The initial Pages source is configured through the GitHub API with `source.branch=main`, `source.path=/docs`, `build_type=legacy`. `docs/` is the only published directory; tests and scripts stay outside it.
 
-## Install privately
+## Installation and distribution
 
-Follow [docs/setup.txt](docs/setup.txt). Register in the workspace owning your board, enable all eight capabilities, generate a public app API key and configure the allowed origin. Enter that key through the Power-Up UI; no source edit/deployment is required. Each user separately authorizes read access. The public repository/website does **not** put the Power-Up in Trello's public directory.
+Follow [docs/setup.txt](docs/setup.txt). The registered Power-Up ID is `6aa901a6de4bf8ac86c834f7`. Its public app key is fixed in `docs/js/config.js`; no user enters API keys. Each user authorizes read access through the integrated popup. Nine capabilities are enabled, including on-enable onboarding. Public directory approval is pending; until approval, installation is limited to the developer workspace. Forks must register their own app and replace the public key.
 
 The developer agreement, creation of API credentials and authorization of account access may require the account owner to complete or explicitly approve those steps. No OAuth secret is needed by this static app.
 
@@ -71,9 +71,9 @@ The developer agreement, creation of API credentials and authorization of accoun
 
 Large boards may take longer to load (up to five history requests start per second per connector). Network failure, denied authorization and rate limiting have explicit neutral badge states. Retries happen on refresh. Filtering scans at most 20 × 100 actions per card; a still-unresolved history is unknown. Trello plugin data has a 4096-character limit per scope/visibility; saves leave headroom and report errors. Trello shared writes are not atomic: simultaneous settings edits can conflict despite reading the latest config before saving.
 
-## Before a public directory release
+## Public directory review
 
-Verify real Trello flows across supported browsers and large boards, review accessibility/theme behavior and Trello's current review/branding/privacy requirements, choose distribution/license terms, and submit the Power-Up separately. The current version is intended for personal workspace use.
+The public website is independent of Trello directory approval. Submit through the official developer support form and wait for Trello review before advertising public installation. The interface is German; listing descriptions explain this. Public metadata and review instructions are maintained in `docs/listing.txt`. OAuth 1 Trello Auth is used to request only read access; no API secret is used. Trello OAuth 2 power-up defaults currently include both read and write board scopes, so migration needs an explicit permissions review.
 
 ## Primary references
 

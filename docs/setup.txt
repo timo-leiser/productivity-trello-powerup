@@ -1,47 +1,29 @@
-PRODUCTIVITY — PRIVATES TRELLO-POWER-UP EINRICHTEN
-================================================
+PRODUCTIVITY — ANLEITUNG
+=======================
 
-1. https://trello.com/apps/admin öffnen.
-   Trello Developer Terms selbst prüfen und akzeptieren.
-   New wählen. Den Workspace auswählen, dem dein Board gehört.
+Version 0.2.0 · Kostenlos · Bedienoberfläche auf Deutsch
+Öffentliche Verzeichnisfreigabe durch Trello steht noch aus.
 
-2. Name: Productivity
-   Author: Timo Leiser
-   Email / Support: timo@leiser.ai
-   iframe Connector URL:
-   https://timo-leiser.github.io/productivity-trello-powerup/connector.html
+1. Nach der Freigabe: Auf deinem Board Power-Ups > Hinzufügen öffnen
+   und „Productivity“ von Timo Leiser wählen.
+   Bis zur Freigabe: Nur im Entwickler-Workspace unter Benutzerdefiniert.
 
-3. Folgende acht Capabilities aktivieren:
-   - card-badges
-   - card-detail-badges
-   - board-buttons
-   - card-buttons
-   - list-actions
-   - show-settings
-   - authorization-status
-   - show-authorization
+2. Productivity > Trello-Verbindung verwalten > Mit Trello verbinden.
+   Erlaube den Lesezugriff auf die Kartenhistorie.
+   Es ist kein API-Key und kein zusätzliches Konto nötig.
+   Der Token wird privat in Trello gespeichert und gilt bis zum Widerruf.
+   Trello erlaubt dabei das Lesen aller zugänglichen Boards; Productivity
+   lädt nur die Kartenhistorie im aktuell verwendeten Board-Kontext.
 
-4. Unter API Key einen API-Key erstellen.
-   Allowed origin: https://timo-leiser.github.io
-   Return URL (falls abgefragt):
-   https://timo-leiser.github.io/productivity-trello-powerup/auth-callback.html
-
-   Nur der öffentliche API-Key wird gebraucht.
-   Niemals ein API-Secret oder einen persönlichen Token in GitHub ablegen.
-
-5. Im gewünschten Board: Power-Ups > Hinzufügen > Benutzerdefiniert.
-   Productivity hinzufügen. Nur im ausgewählten Workspace verfügbar;
-   es ist keine Veröffentlichung im öffentlichen Verzeichnis erforderlich.
-
-6. Im Board den Productivity-Button öffnen > Trello-Verbindung verwalten.
-   Den öffentlichen API-Key eintragen und speichern.
-   Mit Trello verbinden anklicken und den Lesezugriff erlauben.
-   Der Token wird privat in Trello gespeichert.
-
-7. Im Productivity-Button oder über ... an einer Liste die Phase auswählen.
+3. Im Productivity-Button oder über ... an einer Liste die Phase auswählen.
    Orange / Rot in Tagen oder Stunden eintragen, dann Phase speichern.
    Leeres Feld = diese Warnfarbe aus. Beide leer = nur Zeit anzeigen.
    Standard: Orange ab 2 Tagen, Rot ab 5 Tagen.
+   Einstellungen gelten gemeinsam für alle Mitglieder des Boards.
+
+SUPPORT UND DATENSCHUTZ
+Timo Leiser · timo@leiser.ai
+https://timo-leiser.github.io/productivity-trello-powerup/privacy.html
 
 WIE DIE ZEIT GEZÄHLT WIRD
 - Jede Trello-Liste ist eine Phase.

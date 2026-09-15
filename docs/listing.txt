@@ -1,0 +1,47 @@
+PRODUCTIVITY — PUBLIC POWER-UP METADATA
+======================================
+Power-Up ID: 6aa901a6de4bf8ac86c834f7
+Author: Timo Leiser
+Support: timo@leiser.ai
+Price: Free
+Interface: German
+Categories: Board utilities; Analytics & reporting
+Connector: https://timo-leiser.github.io/productivity-trello-powerup/connector.html
+Privacy: https://timo-leiser.github.io/productivity-trello-powerup/privacy.html
+Website: https://timo-leiser.github.io/productivity-trello-powerup/
+Icon: https://timo-leiser.github.io/productivity-trello-powerup/assets/mark.svg
+
+OVERVIEW (EN)
+See time in each list with orange and red alerts you set per phase. Free; German interface.
+
+ÜBERSICHT (DE)
+Sieh die Zeit pro Phase direkt auf deinen Karten. Mit eigenen Orange- und Rot-Schwellen für jede Liste.
+
+FEATURES
+- Elapsed calendar time since the last recorded entry into the current list.
+- Card-front and card-detail badges, refreshed about every 60 seconds.
+- Independent orange/red thresholds per list, in hours or days.
+- Default orange: 48 hours. Default red: 120 hours. Empty disables that color.
+- Shared board settings via board button, card button and list menu.
+- Existing card history; no fabricated time when history is missing.
+- No external account, subscription, advertising, analytics or application server.
+- Read-only Trello Auth; token in private member plugin data, settings in shared board plugin data.
+- German interface. Browser processing. Static hosting on GitHub Pages.
+
+REVIEW INSTRUCTIONS
+1. Add the Power-Up to a test board containing two or more lists and cards.
+2. Click Mit Trello verbinden and approve read-only access for your own Trello account.
+3. Inspect card front and detail badges. Existing history should show the current stay.
+4. Move a card to another list; its current stay restarts from that recorded move.
+5. Open Productivity on the board, select a list, and choose Stunden (hours).
+6. Set orange to 0 and red to 0.01. Save. After one minute the badge should be red.
+7. Set red to 1 to see orange. Empty both fields for an uncolored elapsed-time badge.
+8. Reload the board: list settings persist. Different lists have independent settings.
+9. Use Trello-Verbindung verwalten > Verbindung entfernen to disconnect.
+   Revoke authorization in https://trello.com/my/account as well.
+
+LIMITS
+Only badges are colored. Calendar time includes nights/weekends and is not paused
+by completion or archival. Large boards and rate limits can delay loading.
+Each member authorizes separately. Missing history produces an unknown time.
+No developer credentials or extra test account are needed for reviewers.

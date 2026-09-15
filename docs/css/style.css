@@ -22,8 +22,10 @@
   label { font-weight: 600; font-size: 13px; }
   button { border: 0; border-radius: 7px; padding: 10px 14px; font-weight: 600; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: oklch(20% .014 175); --surface: oklch(25% .014 175); --ink: oklch(94% .012 160); --muted: oklch(74% .014 160); --line: oklch(36% .019 165); --accent: oklch(75% .105 169); --soft: oklch(31% .035 164); --orange-bg: oklch(35% .055 65); --orange-ink: oklch(87% .12 76); --red-bg: oklch(32% .062 24); --red-ink: oklch(85% .09 25); }
+    :root:not([data-color-mode="light"]) { --bg: oklch(20% .014 175); --surface: oklch(25% .014 175); --ink: oklch(94% .012 160); --muted: oklch(74% .014 160); --line: oklch(36% .019 165); --accent: oklch(75% .105 169); --soft: oklch(31% .035 164); --orange-bg: oklch(35% .055 65); --orange-ink: oklch(87% .12 76); --red-bg: oklch(32% .062 24); --red-ink: oklch(85% .09 25); }
   }
+  :root[data-color-mode="light"] { color-scheme: light; }
+  :root[data-color-mode="dark"] { color-scheme: dark; --bg: oklch(20% .014 175); --surface: oklch(25% .014 175); --ink: oklch(94% .012 160); --muted: oklch(74% .014 160); --line: oklch(36% .019 165); --accent: oklch(75% .105 169); --soft: oklch(31% .035 164); --orange-bg: oklch(35% .055 65); --orange-ink: oklch(87% .12 76); --red-bg: oklch(32% .062 24); --red-ink: oklch(85% .09 25); }
 }
 @layer components {
   .primary { background: var(--accent); color: var(--surface); text-decoration: none; display: inline-flex; justify-content: center; align-items: center; gap: 10px; border-radius: 7px; padding: 11px 16px; font-weight: 650; }
@@ -62,8 +64,6 @@
   #form-message:empty { display: none; }
   details { margin-block: 18px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 12px 0; }
   summary { font-size: 13px; font-weight: 650; }
-  #key-form { display: grid; gap: 12px; padding-top: 12px; }
-  #key-form input { width: 100%; font-family: monospace; }
   .site { max-width: 1100px; margin: 0 auto; padding: 0 36px; }
   .topbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 30px 0; border-bottom: 1px solid var(--line); }
   .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); font-size: 18px; font-weight: 700; letter-spacing: -.035em; }
