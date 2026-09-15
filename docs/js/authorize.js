@@ -1,5 +1,6 @@
 import { AUTH_KEY } from './domain.js';
 import { APP_KEY } from './config.js';
+import { authorizeWithPopup } from './auth-flow.js';
 import { demoClient } from './demo-client.js';
 
 const demo = new URLSearchParams(location.search).get('demo') === '1';
@@ -26,12 +27,12 @@ $('authorize').addEventListener('click', async () => {
   $('authorize').disabled = true;
   try {
     // Call directly from the user's click to avoid popup blockers.
-    const token = await t.authorize(url.href, { width: 600, height: 740 });
+    const token = await authorizeWithPopup(t, url.href);
     if (typeof token !== 'string' || !token) throw new Error('Die Freigabe wurde nicht abgeschlossen.');
     await t.set('member', 'private', AUTH_KEY, { appKey: APP_KEY, token });
     await load();
     $('auth-status').textContent = 'Verbunden. Schließe dieses Fenster und öffne den Productivity-Button, um Warnschwellen festzulegen. Phasenzeiten erscheinen innerhalb einer Minute.';
-  } catch { $('auth-status').textContent = 'Verbindung nicht abgeschlossen. Bitte Pop-ups erlauben und erneut versuchen.'; }
+  } catch (error) { $('auth-status').textContent = error.message || 'Verbindung nicht abgeschlossen. Bitte erneut versuchen.'; }
   finally { $('authorize').disabled = false; resize(); }
 });
 $('disconnect').addEventListener('click', async () => {
