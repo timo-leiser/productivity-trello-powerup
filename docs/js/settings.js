@@ -82,7 +82,7 @@ $('settings-form').addEventListener('submit', async event => {
   const listId = selected;
   try {
     const rule = values();
-    $('save').disabled = true;
+    for (const control of $('settings-form').querySelectorAll('input, select, button')) control.disabled = true;
     // Read the latest board data before merging just the edited phase.
     const latest = await t.get('board', 'shared', SETTINGS_KEY, {});
     const next = { ...latest, version: 1, lists: { ...latest.lists, [listId]: rule } };
@@ -91,7 +91,12 @@ $('settings-form').addEventListener('submit', async event => {
     config = next; drafts.delete(listId);
     if (selected === listId) { dirty = false; $('form-message').textContent = 'Gespeichert. Die Kartenanzeige aktualisiert sich innerhalb einer Minute.'; $('form-message').className = 'success-text'; }
   } catch (error) { $('form-message').textContent = error.message || 'Speichern fehlgeschlagen. Bitte erneut versuchen.'; $('form-message').className = 'error'; }
-  finally { $('save').disabled = !writable; resize(); }
+  finally {
+    for (const control of $('settings-form').querySelectorAll('input, select, button')) control.disabled = !writable;
+    $('phase').disabled = false;
+    $('unit').disabled = false;
+    resize();
+  }
 });
 $('open-auth').addEventListener('click', () => {
   if (demo) { location.href = './authorize.html?demo=1'; return; }
