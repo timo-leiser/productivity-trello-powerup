@@ -1,0 +1,14 @@
+{
+  "name": "productivity-trello-powerup",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Time in Trello lists with configurable warning thresholds.",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "test": "node --test",
+    "check": "node scripts/check.mjs",
+    "github": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/github.ps1"
+  }
+}

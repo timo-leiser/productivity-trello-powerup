@@ -1,0 +1,5 @@
+#!/bin/sh
+case "$2" in
+  https://timo-leiser@github.com/timo-leiser/productivity-trello-powerup.git|https://github.com/timo-leiser/productivity-trello-powerup.git) ;;
+  *) echo 'Unexpected push destination. This project uses timo-leiser/productivity-trello-powerup over HTTPS.' >&2; exit 1 ;;
+esac

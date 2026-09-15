@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://p.trellocdn.com; style-src 'self'; img-src 'self' data:; connect-src https://api.trello.com; object-src 'none'; base-uri 'none'">
+  <title>Phasen einstellen · Productivity</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="popup">
+  <main id="app">
+    <header class="popup-header"><img src="./assets/mark.svg" width="32" height="32" alt=""><div><h1>Jede Phase hat ihr Tempo.</h1><p>Lege fest, wann eine Karte Aufmerksamkeit braucht.</p></div></header>
+    <p id="demo-note" class="notice" hidden>Vorschau mit Beispieldaten. Änderungen gelten nur für diese Demo.</p>
+    <p id="connection" class="notice">Einstellungen werden geladen …</p>
+    <form id="settings-form" hidden>
+      <label for="phase">Phase <span class="muted">/ Trello-Liste</span></label>
+      <select id="phase" name="phase"></select>
+      <div class="section-heading"><h2>Warnschwellen</h2><label class="unit-label" for="unit">Einheit <select id="unit"><option value="days">Tage</option><option value="hours">Stunden</option></select></label></div>
+      <div class="threshold-row"><span class="status-dot orange"></span><label for="orange">Orange ab<span class="field-help">Zeit, nachzufassen</span></label><input id="orange" type="number" min="0" step="any" inputmode="decimal" placeholder="Aus" aria-describedby="threshold-help"></div>
+      <div class="threshold-row"><span class="status-dot red"></span><label for="red">Rot ab<span class="field-help">Braucht Aufmerksamkeit</span></label><input id="red" type="number" min="0" step="any" inputmode="decimal" placeholder="Aus" aria-describedby="threshold-help"></div>
+      <p class="help" id="threshold-help">Ein leeres Feld schaltet die jeweilige Farbe aus. Ein Tag entspricht 24 Stunden, inklusive Wochenende.</p>
+      <div class="preview"><span class="eyebrow">VORSCHAU</span><span id="preview-badge" class="badge">3 T. 0 Std.</span><span class="help">bei 3 Tagen in dieser Phase</span></div>
+      <p id="form-message" role="status" aria-live="polite"></p>
+      <div class="actions"><button class="primary" id="save" type="submit">Phase speichern</button><button id="reset" type="button" class="quiet">Standardwerte</button></div>
+    </form>
+    <p class="help footer-note">Die Zeit zählt seit dem letzten Wechsel in diese Liste. Beim Zurückschieben beginnt ein neuer Aufenthalt.</p>
+    <button id="open-auth" class="text-button" type="button">Trello-Verbindung verwalten →</button>
+  </main>
+  <script src="https://p.trellocdn.com/power-up.min.js"></script>
+  <script type="module" src="./js/settings.js"></script>
+</body>
+</html>

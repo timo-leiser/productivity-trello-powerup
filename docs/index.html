@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Sieh, wie lange deine Trello-Karten in ihrer aktuellen Phase liegen. Mit individuellen Warnschwellen pro Liste."><meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; frame-src 'self'; object-src 'none'; base-uri 'none'">
+  <title>Productivity · Gib deiner Arbeit ein Zeitgefühl</title><link rel="icon" href="./assets/mark.svg"><link rel="stylesheet" href="./css/style.css">
+</head>
+<body><div class="site">
+  <header class="topbar"><a class="brand" href="./"><img src="./assets/mark.svg" alt="" width="32" height="32">Productivity</a><nav aria-label="Hauptnavigation"><a href="#installation">Einrichtung</a><a href="https://github.com/timo-leiser/productivity-trello-powerup">GitHub ↗</a></nav></header>
+  <main>
+    <section class="hero"><div><span class="eyebrow">DEIN TRELLO. MIT ZEITGEFÜHL.</span><h1>Was liegt gerade an?<br><em>Und wie lange schon?</em></h1></div><div><p>Erkenne auf einen Blick, welche Aufgaben feststecken. Productivity zeigt die Zeit in jeder Phase – mit Warnschwellen, die zu deiner Arbeit passen.</p><a class="primary" href="#installation">Für mein Board einrichten <span aria-hidden="true">↗</span></a></div></section>
+    <section class="board-demo" aria-label="Interaktive Vorschau mit Beispieldaten"><header class="board-header"><h2>Ein ganz normaler Arbeitstag.</h2><span class="help">INTERAKTIVE VORSCHAU</span></header>
+      <div class="board-columns">
+        <section class="demo-column"><h3>Ideen <span class="count">02</span></h3><article class="task-card"><span class="task-tag"></span><p>Den nächsten Workshop planen</p><span class="badge" data-list="ideas" data-hours="18"></span></article><article class="task-card"><span class="task-tag alt"></span><p>Eine gute Idee weiterdenken</p><span class="badge" data-list="ideas" data-hours="4"></span></article></section>
+        <section class="demo-column"><h3>In Arbeit <span class="count">02</span></h3><article class="task-card"><span class="task-tag"></span><p>Feedback in den Entwurf einarbeiten</p><span class="badge" data-list="doing" data-hours="76"></span></article><article class="task-card"><span class="task-tag alt"></span><p>Die neue Startseite fertigstellen</p><span class="badge" data-list="doing" data-hours="8"></span></article></section>
+        <section class="demo-column"><h3>Review <span class="count">01</span></h3><article class="task-card"><span class="task-tag"></span><p>Das Konzept gemeinsam freigeben</p><span class="badge" data-list="review" data-hours="149"></span></article></section>
+      </div>
+      <div class="demo-toolbar"><div class="legend"><span><i class="status-dot"></i>Im Zeitrahmen</span><span><i class="status-dot orange"></i>Nachfassen</span><span><i class="status-dot red"></i>Aufmerksamkeit</span></div><button id="demo-settings">Warnschwellen ausprobieren ↗</button></div>
+    </section>
+    <section class="features" aria-label="Funktionen"><article><span class="eyebrow">01 / SICHTBAR</span><h3>Die Zeit steht auf der Karte.</h3><p>Minuten, Stunden und Tage direkt auf deinem Board. Die Anzeige aktualisiert sich jede Minute.</p></article><article><span class="eyebrow">02 / INDIVIDUELL</span><h3>Deine Phase. Deine Schwelle.</h3><p>Orange nach zwei Tagen? Rot nach einer Woche? Lege es für jede Liste in Stunden oder Tagen fest.</p></article><article><span class="eyebrow">03 / NACHVOLLZIEHBAR</span><h3>Auch wenn das Board zu ist.</h3><p>Die Kartenhistorie liefert den Zeitpunkt. Jeder Listenwechsel beginnt einen neuen Aufenthalt.</p></article></section>
+    <section class="installation" id="installation"><div><span class="eyebrow">IN DEINEM WORKSPACE</span><h2>Dein Board.<br>Ein bisschen klarer.</h2><p>Du kannst Productivity zunächst als eigenes Power-Up nutzen. Eine Veröffentlichung im Trello-Verzeichnis ist dafür nicht nötig.</p><p><a href="./setup.txt">Einrichtung als Textdatei ↗</a></p></div>
+      <ol class="steps"><li><strong>Power-Up in Trello anlegen</strong>Öffne das <a href="https://trello.com/apps/admin" target="_blank" rel="noopener noreferrer">Trello-Adminportal</a>, wähle deinen Workspace und erstelle „Productivity“. Verwende diese Connector-URL:<div class="copy-field"><input id="connector-url" aria-label="Connector-URL" readonly value="https://timo-leiser.github.io/productivity-trello-powerup/connector.html"><button id="copy-url" class="secondary">Kopieren</button></div></li>
+      <li><strong>Funktionen und API-Key einrichten</strong>Aktiviere die acht Capabilities aus der <a href="./setup.txt">Einrichtungsanleitung</a>. Erzeuge einen API-Key und erlaube den Ursprung <code>https://timo-leiser.github.io</code>.</li>
+      <li><strong>Zum Board hinzufügen & verbinden</strong>Wähle auf deinem Board unter Power-Ups → Benutzerdefiniert „Productivity“. Öffne den Productivity-Button und verwalte dort die Trello-Verbindung.</li>
+      <li><strong>Jeder Phase ihre Zeit geben</strong>Öffne „Productivity“ oder das Menü einer Liste. Speichere die Schwellen pro Phase. Ein leeres Feld deaktiviert die jeweilige Warnfarbe.</li></ol>
+    </section>
+  </main>
+  <footer class="site-footer"><span>Productivity · Ein Power-Up von Timo Leiser</span><div><a href="./privacy.html">Datenschutz</a><a href="mailto:timo@leiser.me">Kontakt</a><span>v0.1.0</span></div></footer>
+</div>
+<dialog id="settings-dialog" aria-label="Productivity ausprobieren"><div class="dialog-bar"><span>Productivity · Demo</span><button id="close-demo" aria-label="Vorschau schließen">×</button></div><iframe id="demo-frame" title="Warnschwellen ausprobieren" src="./settings.html?demo=1" loading="lazy"></iframe></dialog>
+<script type="module" src="./js/landing.js"></script>
+</body></html>

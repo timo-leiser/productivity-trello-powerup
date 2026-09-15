@@ -1,0 +1,5 @@
+#!/bin/sh
+if [ "$(git config user.name)" != "timo-leiser" ] || [ "$(git config user.email)" != "timo@leiser.me" ]; then
+  echo 'This project requires timo-leiser <timo@leiser.me>.' >&2
+  exit 1
+fi
