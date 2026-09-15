@@ -1,11 +1,12 @@
 export const HOUR = 3_600_000;
 export const SETTINGS_KEY = 'productivity-v1';
 export const AUTH_KEY = 'productivity-auth-v1';
-export const DEFAULT_RULE = Object.freeze({ orange: 48, red: 120 });
+export const DEFAULT_RULE = Object.freeze({ green: 0, orange: 48, red: 120 });
 
 export function ruleFor(settings, listId) {
   const rule = settings?.lists?.[listId] ?? DEFAULT_RULE;
-  return { orange: validHours(rule.orange), red: validHours(rule.red) };
+  // Existing lists keep green disabled until explicitly configured.
+  return { green: validHours(rule.green), orange: validHours(rule.orange), red: validHours(rule.red) };
 }
 
 export function unitFor(settings, listId) {
@@ -31,11 +32,17 @@ export function parseThreshold(value, unit = 'hours') {
 }
 
 export function validateRule(rule) {
-  for (const value of [rule.orange, rule.red]) {
+  for (const value of [rule.green ?? null, rule.orange, rule.red]) {
     if (value !== null && validHours(value) === null) throw new Error('Bitte gültige Zeiten eingeben.');
   }
   if (rule.orange !== null && rule.red !== null && rule.red <= rule.orange) {
     throw new Error('Rot muss später beginnen als Orange.');
+  }
+  if (rule.green != null && rule.orange !== null && rule.orange <= rule.green) {
+    throw new Error('Orange muss später beginnen als Grün.');
+  }
+  if (rule.green != null && rule.red !== null && rule.red <= rule.green) {
+    throw new Error('Rot muss später beginnen als Grün.');
   }
   return rule;
 }
@@ -43,6 +50,7 @@ export function validateRule(rule) {
 export function statusFor(elapsedMs, rule) {
   if (rule.red !== null && elapsedMs >= rule.red * HOUR) return 'red';
   if (rule.orange !== null && elapsedMs >= rule.orange * HOUR) return 'orange';
+  if (rule.green != null && elapsedMs >= rule.green * HOUR) return 'green';
   return 'normal';
 }
 

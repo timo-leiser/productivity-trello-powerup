@@ -29,15 +29,25 @@ test('list menu opens exactly the selected phase', async () => {
   assert.equal(popup.args.listId, 'phase-2');
   assert.equal(popup.height, SETTINGS_POPUP_HEIGHT);
 });
-test('board settings and authorization open at their reserved content heights', async () => {
+test('generic settings offer one action per phase and no board button', async () => {
   let popup;
-  const t = { popup: async value => { popup = value; } };
-  await handlers['board-buttons']()[0].callback(t);
-  assert.equal(popup.height, SETTINGS_POPUP_HEIGHT);
+  const t = { lists: async () => [{ id: 'one', name: 'First' }, { id: 'two', name: 'Second' }], popup: async value => { popup = value; } };
+  assert.deepEqual(handlers['board-buttons'](), []);
   await handlers['show-settings'](t);
+  assert.deepEqual(popup.items.map(item => item.text), ['First', 'Second', 'Trello-Verbindung verwalten']);
+  await popup.items[1].callback(t);
+  assert.equal(popup.args.listId, 'two');
   assert.equal(popup.height, SETTINGS_POPUP_HEIGHT);
   await handlers['show-authorization'](t);
   assert.equal(popup.height, AUTH_POPUP_HEIGHT);
+});
+test('generic settings on an empty board retain an authorization action', async () => {
+  let popup;
+  const t = { lists: async () => [], popup: async value => { popup = value; } };
+  await handlers['show-settings'](t);
+  assert.equal(popup.items.length, 1);
+  await popup.items[0].callback(t);
+  assert.ok(popup.url.includes('authorize.html'));
 });
 test('authorization status only accepts a token for the current key', async () => {
   const t = { get: async (_scope, _visibility, key) => key === SETTINGS_KEY ? { appKey: 'a' } : { appKey: 'b', token: 'test' } };

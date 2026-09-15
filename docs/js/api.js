@@ -1,4 +1,4 @@
-import { AUTH_KEY, findListEntry } from './domain.js';
+import { AUTH_KEY, findListEntry } from './domain.js?v=20260915-phase-colors';
 import { APP_KEY } from './config.js';
 
 const FILTER = 'updateCard:idList,createCard,copyCard,convertToCardFromCheckItem,emailCard,moveCardToBoard';

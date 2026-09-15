@@ -10,10 +10,13 @@ body { background: var(--ds-surface, #fff); color: var(--ds-text, #172b4d); }
 .field input, .field select { width: 100%; margin: 0; height: 36px; }
 .field select { padding: 6px 10px; border: 1px solid var(--ds-border-input, #8590a2); border-radius: 3px; background: var(--ds-background-input, #fff); color: var(--ds-text, #172b4d); font: inherit; }
 .field select:focus-visible { outline: 2px solid var(--ds-border-focused, #388bff); outline-offset: 1px; }
-.thresholds { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.phase-name { line-height: 20px; margin: 0 0 12px; overflow-wrap: anywhere; }
+.thresholds { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.thresholds input { padding-inline: 8px; }
 .thresholds .field { margin-bottom: 4px; }
 .status-dot { display: inline-block; width: 8px; height: 8px; margin-right: 6px; border-radius: 50%; }
 .status-dot.orange { background: var(--ds-icon-warning, #b65c02); }
+.status-dot.green { background: var(--ds-icon-success, #22a06b); }
 .status-dot.red { background: var(--ds-icon-danger, #c9372c); }
 .help, details { color: var(--ds-text-subtle, #44546f); font-size: 12px; line-height: 18px; }
 p { margin: 0 0 12px; }
@@ -21,6 +24,7 @@ p { margin: 0 0 12px; }
 .badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 6px; border-radius: 3px; white-space: nowrap; font-size: 12px; line-height: 20px; color: var(--ds-text, #172b4d); background: var(--ds-background-neutral, #091e420f); }
 .badge::before { content: ''; width: 12px; height: 12px; background: currentColor; mask: url('../assets/clock.svg') center / contain no-repeat; }
 .badge.orange { color: var(--ds-text-warning, #974f0c); background: var(--ds-background-warning, #fff7d6); }
+.badge.green { color: var(--ds-text-success, #216e4e); background: var(--ds-background-success, #dcfff1); }
 .badge.red { color: var(--ds-text-danger, #ae2e24); background: var(--ds-background-danger, #ffeceb); }
 .actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .actions button { margin: 0; }

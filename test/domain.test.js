@@ -5,7 +5,7 @@ import { HOUR, DEFAULT_RULE, ruleFor, unitFor, parseThreshold, validateRule, sta
 const card = { id: 'card-1', idList: 'doing' };
 const move = (id, date, from, to) => ({ id, type: 'updateCard', date, data: { card: { id: card.id }, listBefore: { id: from }, listAfter: { id: to } } });
 test('colors begin exactly at each configured threshold', () => {
-  assert.equal(statusFor(48 * HOUR - 1, DEFAULT_RULE), 'normal');
+  assert.equal(statusFor(48 * HOUR - 1, DEFAULT_RULE), 'green');
   assert.equal(statusFor(48 * HOUR, DEFAULT_RULE), 'orange');
   assert.equal(statusFor(120 * HOUR - 1, DEFAULT_RULE), 'orange');
   assert.equal(statusFor(120 * HOUR, DEFAULT_RULE), 'red');
@@ -33,7 +33,7 @@ test('legacy hour thresholds reopen in readable units without changing timing', 
   assert.equal(unitFor(settings, 'fraction'), 'hours');
   assert.equal(unitFor(settings, 'off'), 'days');
   assert.equal(unitFor(settings, 'new'), 'days');
-  assert.deepEqual(ruleFor(settings, 'short'), { orange: 0, red: 1 });
+  assert.deepEqual(ruleFor(settings, 'short'), { green: null, orange: 0, red: 1 });
 });
 test('saved unit preferences remain per phase and do not change badge thresholds', () => {
   const settings = { lists: { a: { orange: 24, red: 48, unit: 'hours' }, b: { orange: 12, red: 36, unit: 'days' }, c: { orange: 1, red: 2, unit: 'unknown' } } };
@@ -80,4 +80,39 @@ test('calendar time continues while closed, including weekends and DST changes',
   const entry = { enteredAt: Date.parse('2026-03-28T12:00:00+01:00') };
   assert.equal(badgeFor(entry, DEFAULT_RULE, Date.parse('2026-03-29T12:00:00+02:00')).text, '23 Std. 0 Min.');
   assert.equal(badgeFor(entry, DEFAULT_RULE, entry.enteredAt + 149 * HOUR).color, 'red');
+});
+
+test('green is an independent inclusive threshold with orange and red taking precedence', () => {
+  const rule = { green: 2, orange: 4, red: 6 };
+  assert.equal(statusFor(2 * HOUR - 1, rule), 'normal');
+  assert.equal(statusFor(2 * HOUR, rule), 'green');
+  assert.equal(statusFor(4 * HOUR, rule), 'orange');
+  assert.equal(statusFor(6 * HOUR, rule), 'red');
+  assert.equal(badgeFor({ enteredAt: 0 }, rule, 3 * HOUR).color, 'green');
+  assert.equal(badgeFor(null, rule, 3 * HOUR).color, 'light-gray');
+});
+
+test('each color can be disabled without bypassing the order of remaining thresholds', () => {
+  assert.equal(statusFor(3 * HOUR, { green: null, orange: 4, red: 6 }), 'normal');
+  assert.equal(statusFor(5 * HOUR, { green: 2, orange: null, red: 6 }), 'green');
+  assert.equal(statusFor(9 * HOUR, { green: 2, orange: 4, red: null }), 'orange');
+  assert.equal(statusFor(9 * HOUR, { green: null, orange: null, red: null }), 'normal');
+  for (const rule of [
+    { green: 2, orange: 2, red: 6 },
+    { green: 4, orange: 2, red: null },
+    { green: 5, orange: null, red: 3 },
+    { green: 3, orange: null, red: 3 },
+    { green: -1, orange: 4, red: 6 },
+    { green: Infinity, orange: null, red: null },
+  ]) assert.throws(() => validateRule(rule));
+  assert.deepEqual(validateRule({ green: 0, orange: null, red: null }), { green: 0, orange: null, red: null });
+});
+
+test('green settings remain isolated per phase and legacy disabled colors stay disabled', () => {
+  const settings = { lists: { first: { green: 0, orange: 5, red: 10 }, second: { green: 2, orange: null, red: null }, legacy: { orange: null, red: null } } };
+  assert.equal(statusFor(HOUR, ruleFor(settings, 'first')), 'green');
+  assert.equal(statusFor(HOUR, ruleFor(settings, 'second')), 'normal');
+  assert.deepEqual(ruleFor(settings, 'legacy'), { green: null, orange: null, red: null });
+  assert.equal(statusFor(HOUR, ruleFor(settings, 'new')), 'green');
+  assert.equal(unitFor({ lists: { list: { green: 0.5, orange: 24, red: 48 } } }, 'list'), 'hours');
 });

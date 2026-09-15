@@ -1,4 +1,4 @@
-import { HOUR, formatDuration, ruleFor, statusFor } from './domain.js';
+import { HOUR, formatDuration, ruleFor, statusFor } from './domain.js?v=20260915-phase-colors';
 const dialog = document.getElementById('settings-dialog');
 function render() {
   let settings = {};

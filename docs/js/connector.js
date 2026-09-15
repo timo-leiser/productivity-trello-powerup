@@ -1,14 +1,20 @@
-import { SETTINGS_KEY, badgeFor, ruleFor } from './domain.js';
+import { SETTINGS_KEY, badgeFor, ruleFor } from './domain.js?v=20260915-phase-colors';
 import { createApi, credentials } from './api.js';
-import { SETTINGS_POPUP_HEIGHT, AUTH_POPUP_HEIGHT } from './popup-layout.js?v=20260915-height';
+import { SETTINGS_POPUP_HEIGHT, AUTH_POPUP_HEIGHT } from './popup-layout.js?v=20260915-phase-colors';
 
 const api = createApi();
 const icon = new URL('../assets/clock.svg', import.meta.url).href;
-const settingsUrl = new URL('../settings.html?v=20260915-height', import.meta.url).href;
-const authUrl = new URL('../authorize.html?v=20260915-height', import.meta.url).href;
+const settingsUrl = new URL('../settings.html?v=20260915-phase-colors', import.meta.url).href;
+const authUrl = new URL('../authorize.html?v=20260915-phase-colors', import.meta.url).href;
 
-function settings(t, listId) {
-  return t.popup({ title: 'Productivity · Phasen', url: settingsUrl, height: SETTINGS_POPUP_HEIGHT, args: { listId: listId ?? '' } });
+async function settings(t, listId) {
+  if (listId) return t.popup({ title: 'Productivity · Phase', url: settingsUrl, height: SETTINGS_POPUP_HEIGHT, args: { listId } });
+  // The generic Power-Up settings entry remains useful without a board button.
+  const lists = await t.lists('id', 'name');
+  return t.popup({ title: 'Productivity · Phase einstellen', items: [
+    ...lists.map(list => ({ text: list.name, callback: ctx => settings(ctx, list.id) })),
+    { text: 'Trello-Verbindung verwalten', callback: authorize },
+  ] });
 }
 
 function authorize(t) {
@@ -42,7 +48,7 @@ async function badge(t, detail = false) {
 window.TrelloPowerUp.initialize({
   'card-badges': t => [{ dynamic: () => badge(t) }],
   'card-detail-badges': t => [{ dynamic: () => badge(t, true) }],
-  'board-buttons': () => [{ icon: { dark: icon, light: icon }, text: 'Productivity', callback: t => settings(t) }],
+  'board-buttons': () => [],
   'card-buttons': () => [{ icon, text: 'Phasenzeit einstellen', callback: async t => settings(t, (await t.card('idList')).idList) }],
   'list-actions': t => [{ text: 'Productivity · Warnschwellen …', callback: ctx => settings(ctx, t.getContext().list) }],
   'show-settings': t => settings(t),

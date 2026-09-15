@@ -12,17 +12,17 @@ Website: https://timo-leiser.github.io/productivity-trello-powerup/
 Icon: https://timo-leiser.github.io/productivity-trello-powerup/assets/mark.svg
 
 OVERVIEW (EN)
-See time in each list with orange and red alerts you set per phase. Free; German interface.
+See time in each list with green, orange and red thresholds you set per phase. Free; German interface.
 
 ÜBERSICHT (DE)
-Sieh die Zeit pro Phase direkt auf deinen Karten. Mit eigenen Orange- und Rot-Schwellen für jede Liste.
+Sieh die Zeit pro Phase direkt auf deinen Karten. Mit eigenen Grün-, Orange- und Rot-Schwellen für jede Liste.
 
 FEATURES
 - Elapsed calendar time since the last recorded entry into the current list.
 - Card-front and card-detail badges, refreshed about every 60 seconds.
-- Independent orange/red thresholds per list, in hours or days.
-- Default orange: 48 hours. Default red: 120 hours. Empty disables that color.
-- Shared board settings via board button, card button and list menu.
+- Independent green/orange/red thresholds per list, in hours or days.
+- New lists: green at 0, orange at 48, red at 120 hours. Empty disables that color. Existing saved lists keep green disabled until configured.
+- List-specific settings via each list's ... menu or a card button; no board button or phase dropdown.
 - Existing card history; no fabricated time when history is missing.
 - No external account, subscription, advertising, analytics or application server.
 - Read-only Trello Auth; token in private member plugin data, settings in shared board plugin data.
@@ -33,9 +33,9 @@ REVIEW INSTRUCTIONS
 2. Click Mit Trello verbinden and approve read-only access for your own Trello account.
 3. Inspect card front and detail badges. Existing history should show the current stay.
 4. Move a card to another list; its current stay restarts from that recorded move.
-5. Open Productivity on the board, select a list, and choose Stunden (hours).
-6. Set orange to 0 and red to 0.01. Save. After one minute the badge should be red.
-7. Set red to 1 to see orange. Empty both fields for an uncolored elapsed-time badge.
+5. Open ... on a list > Productivity · Warnschwellen ... and choose Stunden (hours).
+6. Set green to 0, orange to 0.01 and red to 0.02. Save. A newly created card is green, orange after one minute, and red after two minutes.
+7. Empty all three fields for an uncolored elapsed-time badge. Enabled thresholds must increase: green < orange < red.
 8. Reload the board: list settings persist. Different lists have independent settings.
 9. Use Trello-Verbindung verwalten > Verbindung entfernen to disconnect.
    Revoke authorization in https://trello.com/my/account as well.

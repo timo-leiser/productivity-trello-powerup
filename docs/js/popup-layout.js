@@ -1,5 +1,5 @@
 // Shared by the opener and its iframe so the loading and ready states match.
-export const SETTINGS_POPUP_HEIGHT = 411;
+export const SETTINGS_POPUP_HEIGHT = 375;
 export const AUTH_POPUP_HEIGHT = 359;
 
 // Measure the padded content box, not a child with uncounted body margins.

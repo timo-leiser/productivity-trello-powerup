@@ -1,6 +1,6 @@
 # Productivity for Trello
 
-Shows how long each card has been in its **current Trello list**, with orange and red badge thresholds configurable per list. Static HTML, CSS and ES modules, served directly by GitHub Pages. No build service, application server or runtime package dependencies.
+Shows how long each card has been in its **current Trello list**, with green, orange and red badge thresholds configurable per list. Static HTML, CSS and ES modules, served directly by GitHub Pages. No build service, application server or runtime package dependencies.
 
 - [Live demo and setup](https://timo-leiser.github.io/productivity-trello-powerup/)
 - [Plain-text installation guide](https://timo-leiser.github.io/productivity-trello-powerup/setup.txt)
@@ -9,9 +9,9 @@ Shows how long each card has been in its **current Trello list**, with orange an
 ## Features
 
 - Card-front and card-detail time badges; refresh every 60 seconds.
-- Per-list settings via the board button, card button and list menu.
+- Open settings directly from each list's ... menu or from a card. No board button or phase dropdown.
 - Thresholds in hours/days, fractional values, and independently disabled colors.
-- Default orange at 48 hours, red at 120 hours. Thresholds are inclusive.
+- New lists default to green at 0 hours, orange at 48 hours, red at 120 hours. Existing saved lists keep green disabled until configured. Thresholds are inclusive and must increase in that order.
 - Actual latest list-entry action; works for existing cards and while the board is closed.
 - A return to a previous list starts a new stay. Comments, renames and reordering do not restart it.
 - Calendar time, including nights/weekends; completion and archival do not pause time.

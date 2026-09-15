@@ -8,17 +8,20 @@ Version 0.2.0 · Kostenlos · Bedienoberfläche auf Deutsch
    und „Productivity“ von Timo Leiser wählen.
    Bis zur Freigabe: Nur im Entwickler-Workspace unter Benutzerdefiniert.
 
-2. Productivity > Trello-Verbindung verwalten > Mit Trello verbinden.
+2. An einer Liste ... > Productivity · Warnschwellen ... öffnen.
+   Trello-Verbindung verwalten > Mit Trello verbinden auswählen.
    Erlaube den Lesezugriff auf die Kartenhistorie.
    Es ist kein API-Key und kein zusätzliches Konto nötig.
    Der Token wird privat in Trello gespeichert und gilt bis zum Widerruf.
    Trello erlaubt dabei das Lesen aller zugänglichen Boards; Productivity
    lädt nur die Kartenhistorie im aktuell verwendeten Board-Kontext.
 
-3. Im Productivity-Button oder über ... an einer Liste die Phase auswählen.
-   Orange / Rot in Tagen oder Stunden eintragen, dann Phase speichern.
-   Leeres Feld = diese Warnfarbe aus. Beide leer = nur Zeit anzeigen.
-   Standard: Orange ab 2 Tagen, Rot ab 5 Tagen.
+3. An der gewünschten Liste ... > Productivity · Warnschwellen ... öffnen.
+   Grün / Orange / Rot in Tagen oder Stunden eintragen, dann Speichern.
+   Leeres Feld = diese Farbe aus. Alle drei leer = nur Zeit anzeigen.
+   Reihenfolge: Grün < Orange < Rot, deaktivierte Farben überspringen.
+   Standard für neue Phasen: Grün ab 0, Orange ab 2, Rot ab 5 Tagen.
+   Bei vorhandenen Einstellungen bleibt Grün aus, bis du es einträgst.
    Einstellungen gelten gemeinsam für alle Mitglieder des Boards.
 
 SUPPORT UND DATENSCHUTZ
@@ -37,12 +40,12 @@ WIE DIE ZEIT GEZÄHLT WIRD
 - Fehlende/uneindeutige Historie wird als unbekannt gekennzeichnet.
 - Bei ganzen importierten/verschobenen Listen kann die ursprüngliche Historie
   fehlen. Das Power-Up erfindet dann keinen Eintrittszeitpunkt.
-- Es werden Badge-Hintergründe orange/rot, nicht die gesamte Kartenfläche.
+- Es werden Badge-Hintergründe grün/orange/rot, nicht die gesamte Kartenfläche.
 - Anzeige und Einstellungen werden spätestens nach ungefähr 60 Sekunden
   aktualisiert; große Boards/Rate-Limits können die erste Anzeige verzögern.
 
 VERBINDUNG ENTFERNEN
-Productivity > Trello-Verbindung verwalten > Verbindung entfernen.
+An einer Liste ... > Productivity · Warnschwellen ... > Trello-Verbindung verwalten > Verbindung entfernen.
 Freigabe zusätzlich unter https://trello.com/my/account widerrufen.
 
 QUELLEN
