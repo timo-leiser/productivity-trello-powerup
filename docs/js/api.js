@@ -1,4 +1,4 @@
-import { AUTH_KEY, findListEntry } from './domain.js?v=20260915-phase-colors';
+import { AUTH_KEY, findListEntry } from './domain.js?v=20260917-review';
 import { APP_KEY } from './config.js';
 
 const FILTER = 'updateCard:idList,createCard,copyCard,convertToCardFromCheckItem,emailCard,moveCardToBoard';
@@ -8,7 +8,7 @@ export class TrelloError extends Error {
 
 export async function credentials(t) {
   const auth = await t.get('member', 'private', AUTH_KEY, null);
-  if (!auth?.token || auth.appKey !== APP_KEY) throw new TrelloError('auth', 'Bitte mit Trello verbinden.');
+  if (!auth?.token || auth.appKey !== APP_KEY) throw new TrelloError('auth', 'Connect Productivity to Trello.');
   return { key: APP_KEY, token: auth.token };
 }
 
@@ -24,7 +24,7 @@ export function createApi({ fetchImpl = globalThis.fetch, now = Date.now, sleep 
     const turn = queue.then(async () => {
       await sleep(Math.max(0, nextStart - now()));
       nextStart = now() + 210;
-      if (now() < blockedUntil) throw new TrelloError('rate', 'Trello ist ausgelastet. Erneuter Versuch in einer Minute.');
+      if (now() < blockedUntil) throw new TrelloError('rate', 'Trello is busy. Try again in one minute.');
     });
     queue = turn.catch(() => {});
     await turn;
@@ -37,14 +37,14 @@ export function createApi({ fetchImpl = globalThis.fetch, now = Date.now, sleep 
         headers: { Authorization: `OAuth oauth_consumer_key="${encodeURIComponent(auth.key)}", oauth_token="${encodeURIComponent(auth.token)}"` },
         cache: 'no-store', referrerPolicy: 'no-referrer', signal: AbortSignal.timeout(12_000),
       });
-    } catch { throw new TrelloError('network', 'Trello ist gerade nicht erreichbar.'); }
-    if (response.status === 401) throw new TrelloError('auth', 'Verbindung abgelaufen. Bitte erneut verbinden.');
-    if (response.status === 403) throw new TrelloError('access', 'Kein Zugriff auf diese Kartenhistorie.');
+    } catch { throw new TrelloError('network', 'Trello is currently unavailable.'); }
+    if (response.status === 401) throw new TrelloError('auth', 'Your connection expired. Connect again.');
+    if (response.status === 403) throw new TrelloError('access', 'You cannot access this card history.');
     if (response.status === 429) {
       blockedUntil = now() + 60_000;
-      throw new TrelloError('rate', 'Trello ist ausgelastet. Erneuter Versuch in einer Minute.');
+      throw new TrelloError('rate', 'Trello is busy. Try again in one minute.');
     }
-    if (!response.ok) throw new TrelloError('network', 'Kartenhistorie konnte nicht geladen werden.');
+    if (!response.ok) throw new TrelloError('network', 'Card history could not be loaded.');
     return response.json();
   }
 
@@ -56,7 +56,7 @@ export function createApi({ fetchImpl = globalThis.fetch, now = Date.now, sleep 
       const params = { filter: FILTER, fields: 'id,type,date,data', limit: 100, memberCreator: false };
       if (before) params.before = before;
       const batch = await request(auth, `cards/${encodeURIComponent(card.id)}/actions`, params);
-      if (!Array.isArray(batch)) throw new TrelloError('network', 'Unerwartete Antwort von Trello.');
+      if (!Array.isArray(batch)) throw new TrelloError('network', 'Trello returned an unexpected response.');
       actions.push(...batch);
       const entry = findListEntry(actions, card);
       if (entry || batch.length < 100) return entry;

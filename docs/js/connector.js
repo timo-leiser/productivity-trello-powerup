@@ -1,24 +1,32 @@
-import { SETTINGS_KEY, badgeFor, ruleFor } from './domain.js?v=20260915-phase-colors';
+import { SETTINGS_KEY, badgeFor, ruleFor } from './domain.js?v=20260917-review';
 import { createApi, credentials } from './api.js';
-import { SETTINGS_POPUP_HEIGHT, AUTH_POPUP_HEIGHT } from './popup-layout.js?v=20260915-phase-colors';
+import { SETTINGS_POPUP_HEIGHT, AUTH_POPUP_HEIGHT } from './popup-layout.js?v=20260917-review';
 
 const api = createApi();
 const icon = new URL('../assets/clock.svg', import.meta.url).href;
-const settingsUrl = new URL('../settings.html?v=20260915-phase-colors', import.meta.url).href;
-const authUrl = new URL('../authorize.html?v=20260915-phase-colors', import.meta.url).href;
+const settingsUrl = new URL('../settings.html?v=20260917-review', import.meta.url).href;
+const authUrl = new URL('../authorize.html?v=20260917-review', import.meta.url).href;
 
-async function settings(t, listId) {
-  if (listId) return t.popup({ title: 'Productivity · Phase', url: settingsUrl, height: SETTINGS_POPUP_HEIGHT, args: { listId } });
-  // The generic Power-Up settings entry remains useful without a board button.
+function launchPopup(t, options) {
+  // Trello keeps popup promises pending until the UI closes. Capability callbacks
+  // must finish immediately or PluginRunner reports callback timeouts.
+  Promise.resolve(t.popup(options)).catch(() => {});
+}
+
+function openPhaseSettings(t, listId) {
+  launchPopup(t, { title: 'Productivity · Phase', url: settingsUrl, height: SETTINGS_POPUP_HEIGHT, args: { listId } });
+}
+
+async function openSettingsMenu(t) {
   const lists = await t.lists('id', 'name');
-  return t.popup({ title: 'Productivity · Phase einstellen', items: [
-    ...lists.map(list => ({ text: list.name, callback: ctx => settings(ctx, list.id) })),
-    { text: 'Trello-Verbindung verwalten', callback: authorize },
+  launchPopup(t, { title: 'Productivity · Configure a phase', items: [
+    ...lists.map(list => ({ text: list.name, callback: ctx => { openPhaseSettings(ctx, list.id); } })),
+    { text: 'Manage Trello connection', callback: ctx => { openAuthorization(ctx); } },
   ] });
 }
 
-function authorize(t) {
-  return t.popup({ title: 'Productivity verbinden', url: authUrl, height: AUTH_POPUP_HEIGHT });
+function openAuthorization(t) {
+  launchPopup(t, { title: 'Connect Productivity', url: authUrl, height: AUTH_POPUP_HEIGHT });
 }
 
 async function badge(t, detail = false) {
@@ -29,17 +37,17 @@ async function badge(t, detail = false) {
     ]);
     const result = { ...badgeFor(entry, ruleFor(config, card.idList)), refresh: 60 };
     if (detail) {
-      result.title = 'Zeit in dieser Phase';
-      result.callback = ctx => settings(ctx, card.idList);
+      result.title = 'Time in this phase';
+      result.callback = ctx => { openPhaseSettings(ctx, card.idList); };
     } else result.icon = icon;
     return result;
   } catch (error) {
-    const text = error.code === 'auth' ? 'Productivity verbinden'
-        : error.code === 'rate' ? 'Phasenzeit · später erneut'
-          : 'Phasenzeit nicht verfügbar';
+    const text = error.code === 'auth' ? 'Connect Productivity'
+        : error.code === 'rate' ? 'Phase time · try later'
+          : 'Phase time unavailable';
     return {
       text, color: 'light-gray', refresh: 60,
-      ...(detail ? { title: 'Productivity', callback: authorize } : { icon }),
+      ...(detail ? { title: 'Productivity', callback: ctx => { openAuthorization(ctx); } } : { icon }),
     };
   }
 }
@@ -49,13 +57,13 @@ window.TrelloPowerUp.initialize({
   'card-badges': t => [{ dynamic: () => badge(t) }],
   'card-detail-badges': t => [{ dynamic: () => badge(t, true) }],
   'board-buttons': () => [],
-  'card-buttons': () => [{ icon, text: 'Phasenzeit einstellen', callback: async t => settings(t, (await t.card('idList')).idList) }],
-  'list-actions': t => [{ text: 'Productivity · Warnschwellen …', callback: ctx => settings(ctx, t.getContext().list) }],
-  'show-settings': t => settings(t),
+  'card-buttons': () => [{ icon, text: 'Configure phase time', callback: async t => { openPhaseSettings(t, (await t.card('idList')).idList); } }],
+  'list-actions': t => [{ text: 'Productivity · Time thresholds …', callback: ctx => { openPhaseSettings(ctx, t.getContext().list); } }],
+  'show-settings': t => openSettingsMenu(t),
   'authorization-status': async t => {
     try { await credentials(t); return { authorized: true }; }
     catch { return { authorized: false }; }
   },
-  'show-authorization': authorize,
-  'on-enable': t => t.modal({ title: 'Willkommen bei Productivity', url: authUrl, height: AUTH_POPUP_HEIGHT }),
+  'show-authorization': t => { openAuthorization(t); },
+  'on-enable': t => { Promise.resolve(t.modal({ title: 'Welcome to Productivity', url: authUrl, height: AUTH_POPUP_HEIGHT })).catch(() => {}); },
 });

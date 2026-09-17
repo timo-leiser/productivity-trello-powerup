@@ -15,7 +15,7 @@ function clock() {
 test('blocked popup rejects immediately so the connection button can be retried', async () => {
   const c = clock();
   const t = { authorize: (_url, opts) => { opts.windowCallback(null); return new Promise(() => {}); } };
-  await assert.rejects(authorizeWithPopup(t, 'https://trello.com/1/authorize', c.options), /blockiert/);
+  await assert.rejects(authorizeWithPopup(t, 'https://trello.com/1/authorize', c.options), /blocked/);
   assert.equal(c.size, 0);
 });
 test('closing a popup or exceeding the timeout ends the pending flow', async () => {
@@ -25,7 +25,7 @@ test('closing a popup or exceeding the timeout ends the pending flow', async () 
     const t = { authorize: (_url, opts) => { opts.windowCallback(popup); return new Promise(() => {}); } };
     const p = authorizeWithPopup(t, 'https://trello.com/1/authorize', c.options);
     popup.closed = true; c.run(kind);
-    await assert.rejects(p, kind === 'poll' ? /geschlossen/ : /lange/);
+    await assert.rejects(p, kind === 'poll' ? /closed/ : /too long/);
     assert.equal(c.size, 0);
   }
 });

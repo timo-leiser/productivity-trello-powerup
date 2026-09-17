@@ -43,11 +43,11 @@ test('saved unit preferences remain per phase and do not change badge thresholds
   assert.equal(statusFor(36 * HOUR, ruleFor(settings, 'b')), 'red');
 });
 test('readable elapsed time has stable minute/hour/day boundaries', () => {
-  assert.equal(formatDuration(-100), '< 1 Min.');
-  assert.equal(formatDuration(59_999), '< 1 Min.');
-  assert.equal(formatDuration(60_000), '1 Min.');
-  assert.equal(formatDuration(HOUR), '1 Std. 0 Min.');
-  assert.equal(formatDuration(25 * HOUR), '1 T. 1 Std.');
+  assert.equal(formatDuration(-100), '< 1 min');
+  assert.equal(formatDuration(59_999), '< 1 min');
+  assert.equal(formatDuration(60_000), '1 min');
+  assert.equal(formatDuration(HOUR), '1 hr 0 min');
+  assert.equal(formatDuration(25 * HOUR), '1 d 1 hr');
 });
 test('most recent entry wins, including leaving and returning to the same phase', () => {
   const actions = [move('a', '2026-09-01T08:00:00Z', 'ideas', 'doing'), move('c', '2026-09-05T09:00:00Z', 'review', 'doing'), move('b', '2026-09-04T08:00:00Z', 'doing', 'review')];
@@ -70,7 +70,7 @@ test('incomplete or temporarily mismatched histories never claim an older start'
   const actions = [move('a', '2026-09-01T08:00:00Z', 'ideas', 'doing'), move('b', '2026-09-03T08:00:00Z', 'doing', 'review')];
   assert.equal(findListEntry(actions, card), null);
   assert.equal(findListEntry([{ id: 'board-move', type: 'moveCardToBoard', date: '2026-09-05T00:00:00Z', data: {} }, ...actions], card), null);
-  assert.equal(badgeFor(null, DEFAULT_RULE).text, 'Phasenzeit unbekannt');
+  assert.equal(badgeFor(null, DEFAULT_RULE).text, 'Phase time unknown');
 });
 test('the same timestamp uses the latest action ID and ignores another card', () => {
   const actions = [move('b', '2026-09-01T08:00:00Z', 'review', 'doing'), move('a', '2026-09-01T08:00:00Z', 'doing', 'review'), { ...move('c', '2026-09-02T08:00:00Z', 'doing', 'review'), data: { card: { id: 'other' }, listAfter: { id: 'review' } } }];
@@ -78,7 +78,7 @@ test('the same timestamp uses the latest action ID and ignores another card', ()
 });
 test('calendar time continues while closed, including weekends and DST changes', () => {
   const entry = { enteredAt: Date.parse('2026-03-28T12:00:00+01:00') };
-  assert.equal(badgeFor(entry, DEFAULT_RULE, Date.parse('2026-03-29T12:00:00+02:00')).text, '23 Std. 0 Min.');
+  assert.equal(badgeFor(entry, DEFAULT_RULE, Date.parse('2026-03-29T12:00:00+02:00')).text, '23 hr 0 min');
   assert.equal(badgeFor(entry, DEFAULT_RULE, entry.enteredAt + 149 * HOUR).color, 'red');
 });
 

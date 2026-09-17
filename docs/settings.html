@@ -1,38 +1,38 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="no-referrer">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://p.trellocdn.com; style-src 'self' 'unsafe-inline' https://p.trellocdn.com; img-src 'self' data:; connect-src https://api.trello.com; object-src 'none'; base-uri 'none'">
-  <title>Phasen einstellen · Productivity</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://p.trellocdn.com; style-src 'self' 'unsafe-inline' https://p.trellocdn.com; img-src 'self' data:; connect-src https://api.trello.com; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Configure phase · Productivity</title>
   <link rel="stylesheet" href="https://p.trellocdn.com/power-up.min.css">
-  <link rel="stylesheet" href="./css/popup.css?v=20260915-phase-colors">
+  <link rel="stylesheet" href="./css/popup.css?v=20260917-review">
 </head>
 <body class="popup">
   <main id="app">
-    <p id="demo-note" class="help" hidden>Vorschau mit Beispieldaten.</p>
-    <p id="loading" class="help">Einstellungen werden geladen …</p>
+    <p id="demo-note" class="help" hidden>Preview with sample data.</p>
+    <p id="loading" class="help">Loading settings …</p>
     <form id="settings-form" hidden>
       <p class="phase-name">Phase: <strong id="phase-name"></strong></p>
-      <div class="field"><label for="unit">Zeiteinheit</label><select id="unit"><option value="days">Tage</option><option value="hours">Stunden</option></select></div>
+      <div class="field"><label for="unit">Time unit</label><select id="unit"><option value="days">Days</option><option value="hours">Hours</option></select></div>
       <div class="thresholds">
-        <div class="field"><label for="green"><span class="status-dot green" aria-hidden="true"></span>Grün ab</label><input id="green" type="number" min="0" step="any" inputmode="decimal" placeholder="Aus" aria-describedby="threshold-help unit"></div>
-        <div class="field"><label for="orange"><span class="status-dot orange" aria-hidden="true"></span>Orange ab</label><input id="orange" type="number" min="0" step="any" inputmode="decimal" placeholder="Aus" aria-describedby="threshold-help unit"></div>
-        <div class="field"><label for="red"><span class="status-dot red" aria-hidden="true"></span>Rot ab</label><input id="red" type="number" min="0" step="any" inputmode="decimal" placeholder="Aus" aria-describedby="threshold-help unit"></div>
+        <div class="field"><label for="green"><span class="status-dot green" aria-hidden="true"></span>Green from</label><input id="green" type="number" min="0" step="any" inputmode="decimal" placeholder="Off" aria-describedby="threshold-help unit"></div>
+        <div class="field"><label for="orange"><span class="status-dot orange" aria-hidden="true"></span>Orange from</label><input id="orange" type="number" min="0" step="any" inputmode="decimal" placeholder="Off" aria-describedby="threshold-help unit"></div>
+        <div class="field"><label for="red"><span class="status-dot red" aria-hidden="true"></span>Red from</label><input id="red" type="number" min="0" step="any" inputmode="decimal" placeholder="Off" aria-describedby="threshold-help unit"></div>
       </div>
-      <p class="help" id="threshold-help">Leer = Farbe aus. 1 Tag = 24 Stunden.</p>
-      <div class="preview"><span class="help">Beispiel nach 3 Tagen</span><span id="preview-badge" class="badge">3 T. 0 Std.</span></div>
-      <div class="actions"><button class="mod-primary" id="save" type="submit">Speichern</button><button id="reset" type="button">Standardwerte</button></div>
+      <p class="help" id="threshold-help">Empty = color off. 1 day = 24 hours.</p>
+      <div class="preview"><span class="help">Example after 3 days</span><span id="preview-badge" class="badge">3 d 0 hr</span></div>
+      <div class="actions"><button class="mod-primary" id="save" type="submit">Save</button><button id="reset" type="button">Restore defaults</button></div>
       <p id="form-message" class="help" role="status" aria-live="polite"></p>
     </form>
     <footer>
       <p id="connection" class="help" hidden></p>
-      <button id="open-auth" class="link-button" type="button">Trello-Verbindung verwalten</button>
-      <details><summary>Wie wird die Zeit gemessen?</summary><p class="help">Die Zeit zählt seit dem letzten Wechsel in diese Liste, auch am Wochenende. Beim Zurückschieben beginnt ein neuer Aufenthalt. Warnschwellen gelten für alle auf diesem Board.</p></details>
+      <button id="open-auth" class="link-button" type="button">Manage Trello connection</button>
+      <details><summary>How is the time measured?</summary><p class="help">Time starts at the card’s last recorded entry into this list and includes weekends. Moving it back starts a new stay. Thresholds are shared by everyone on this board.</p></details>
     </footer>
   </main>
   <script src="https://p.trellocdn.com/power-up.min.js"></script>
-  <script type="module" src="./js/settings.js?v=20260915-phase-colors"></script>
+  <script type="module" src="./js/settings.js?v=20260917-review"></script>
 </body>
 </html>

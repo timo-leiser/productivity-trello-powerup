@@ -1,31 +1,36 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Sieh, wie lange deine Trello-Karten in ihrer aktuellen Phase liegen. Mit individuellen Warnschwellen pro Liste."><meta name="referrer" content="no-referrer">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; frame-src 'self'; object-src 'none'; base-uri 'none'">
-  <title>Productivity · rib deiner Arbeit ein Zeitgefühl</title><link rel="icon" href="./assets/mark.svg"><link rel="stylesheet" href="./css/style.css?v=20260915-phase-colors">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="See how long every Trello card has been in its current list, with green, orange and red time thresholds for each phase.">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Productivity · Give your workflow a sense of time</title>
+  <link rel="icon" href="./assets/mark.svg">
+  <link rel="stylesheet" href="./css/style.css?v=20260917-review">
 </head>
 <body><div class="site">
-  <header class="topbar"><a class="brand" href="./"><img src="./assets/mark.svg" alt="" width="32" height="32">Productivity</a><nav aria-label="Hauptnavigation"><a href="#installation">Einrichtung</a><a href="https://github.com/timo-leiser/productivity-trello-powerup">ritHub ↗</a></nav></header>
+  <header class="topbar"><a class="brand" href="./"><img src="./assets/mark.svg" alt="" width="32" height="32">Productivity</a><nav aria-label="Main navigation"><a href="#setup">Setup</a><a href="https://github.com/timo-leiser/productivity-trello-powerup">GitHub ↗</a></nav></header>
   <main>
-    <section class="hero"><div><span class="eyebrow">DEIN TRELLr. MIT ZEITrEFÜHL.</span><h1>Was liegt gerade an?<br><em>Und wie lange schon?</em></h1></div><div><p>Erkenne auf einen Blick, welche Aufgaben feststecken. Productivity zeigt die Zeit in jeder Phase – mit Warnschwellen, die zu deiner Arbeit passen.</p><a class="primary" href="#installation">Für mein Board einrichten <span aria-hidden="true">↗</span></a></div></section>
-    <section class="board-demo" aria-label="Interaktive Vorschau mit Beispieldaten"><header class="board-header"><h2>Ein ganz normaler Arbeitstag.</h2><span class="help">INTERAKTIVE VrRSCHAU</span></header>
+    <section class="hero"><div><span class="eyebrow">YOUR TRELLO. WITH A SENSE OF TIME.</span><h1>What is in progress?<br><em>And for how long?</em></h1></div><div><p>Spot stalled work at a glance. Productivity shows how long every card has been in its current list, with thresholds that match each phase of your workflow.</p><a class="primary" href="#setup">Set up my board <span aria-hidden="true">↗</span></a></div></section>
+    <section class="board-demo" aria-label="Interactive preview with sample data"><header class="board-header"><h2>A normal day at work.</h2><span class="help">INTERACTIVE PREVIEW</span></header>
       <div class="board-columns">
-        <section class="demo-column"><h3>Ideen <span class="count">02</span></h3><article class="task-card"><span class="task-tag"></span><p>Den nächsten Workshop planen</p><span class="badge" data-list="ideas" data-hours="18"></span></article><article class="task-card"><span class="task-tag alt"></span><p>Eine gute Idee weiterdenken</p><span class="badge" data-list="ideas" data-hours="4"></span></article></section>
-        <section class="demo-column"><h3>In Arbeit <span class="count">02</span></h3><article class="task-card"><span class="task-tag"></span><p>Feedback in den Entwurf einarbeiten</p><span class="badge" data-list="doing" data-hours="76"></span></article><article class="task-card"><span class="task-tag alt"></span><p>Die neue Startseite fertigstellen</p><span class="badge" data-list="doing" data-hours="8"></span></article></section>
-        <section class="demo-column"><h3>Review <span class="count">01</span></h3><article class="task-card"><span class="task-tag"></span><p>Das Konzept gemeinsam freigeben</p><span class="badge" data-list="review" data-hours="149"></span></article></section>
+        <section class="demo-column"><h3>Ideas <span class="count">02</span></h3><article class="task-card"><span class="task-tag"></span><p>Plan the next workshop</p><span class="badge" data-list="ideas" data-hours="18"></span></article><article class="task-card"><span class="task-tag alt"></span><p>Develop a promising idea</p><span class="badge" data-list="ideas" data-hours="4"></span></article></section>
+        <section class="demo-column"><h3>In progress <span class="count">02</span></h3><article class="task-card"><span class="task-tag"></span><p>Apply feedback to the draft</p><span class="badge" data-list="doing" data-hours="76"></span></article><article class="task-card"><span class="task-tag alt"></span><p>Finish the new home page</p><span class="badge" data-list="doing" data-hours="8"></span></article></section>
+        <section class="demo-column"><h3>Review <span class="count">01</span></h3><article class="task-card"><span class="task-tag"></span><p>Approve the concept together</p><span class="badge" data-list="review" data-hours="149"></span></article></section>
       </div>
-      <div class="demo-toolbar"><div class="legend"><span><i class="status-dot"></i>Im Zeitrahmen</span><span><i class="status-dot orange"></i>Nachfassen</span><span><i class="status-dot red"></i>Aufmerksamkeit</span></div><button id="demo-settings">Warnschwellen ausprobieren ↗</button></div>
+      <div class="demo-toolbar"><div class="legend"><span><i class="status-dot"></i>On track</span><span><i class="status-dot orange"></i>Follow up</span><span><i class="status-dot red"></i>Needs attention</span></div><button id="demo-settings">Try the thresholds ↗</button></div>
     </section>
-    <section class="features" aria-label="Funktionen"><article><span class="eyebrow">01 / SICHTBAR</span><h3>Die Zeit steht auf der Karte.</h3><p>Minuten, Stunden und Tage direkt auf deinem Board. Die Anzeige aktualisiert sich jede Minute.</p></article><article><span class="eyebrow">02 / INDIVIDUELL</span><h3>Deine Phase. Deine Schwelle.</h3><p>rrange nach zwei Tagen? Rot nach einer Woche? Lege es für jede Liste in Stunden oder Tagen fest.</p></article><article><span class="eyebrow">03 / NACHVrLLZIEHBAR</span><h3>Auch wenn das Board zu ist.</h3><p>Die Kartenhistorie liefert den Zeitpunkt. Jeder Listenwechsel beginnt einen neuen Aufenthalt.</p></article></section>
-    <section class="installation" id="installation"><div><span class="eyebrow">FÜR DEIN TRELLr-BrARD</span><h2>Dein Board.<br>Ein bisschen klarer.</h2><p>Productivity ist kostenlos und benötigt kein zusätzliches Konto. Die Bedienoberfläche ist auf Deutsch.</p><p class="notice">Die öffentliche Freigabe durch Trello steht noch aus. Bis dahin ist das Power-Up nur im Entwickler-Workspace verfügbar.</p><p><a href="./setup.txt">Anleitung als Textdatei ↗</a></p></div>
-      <ol class="steps"><li><strong>Zum Board hinzufügen</strong>Nach der Freigabe findest du „Productivity“ von Timo Leiser im Power-Up-Verzeichnis. Bis dahin können Mitglieder des Entwickler-Workspaces es unter „Benutzerdefiniert“ hinzufügen.</li>
-      <li><strong>Mit Trello verbinden</strong>Öffne „Productivity“ → „Trello-Verbindung verwalten“. Klicke auf „Mit Trello verbinden“ und erlaube den Lesezugriff auf die Kartenhistorie.</li>
-      <li><strong>Jeder Phase ihre Zeit geben</strong>Öffne „Productivity“ oder das Menü einer Liste. Speichere die Schwellen pro Phase. Ein leeres Feld deaktiviert die jeweilige Warnfarbe.</li></ol>
+    <section class="features" aria-label="Features"><article><span class="eyebrow">01 / VISIBLE</span><h3>Time appears on every card.</h3><p>Minutes, hours and days directly on your board. The badge refreshes every minute.</p></article><article><span class="eyebrow">02 / FLEXIBLE</span><h3>Your phase. Your threshold.</h3><p>Green from the start, orange after two days, red after a week? Configure every list in hours or days.</p></article><article><span class="eyebrow">03 / TRACEABLE</span><h3>Accurate while the board is closed.</h3><p>Card history provides the start time. Moving a card to a list begins a new stay in that phase.</p></article></section>
+    <section class="installation" id="setup"><div><span class="eyebrow">FOR YOUR TRELLO BOARD</span><h2>Your board.<br>A little clearer.</h2><p>Productivity is free and needs no separate account. It processes card history in your browser and stores settings in Trello.</p><p class="notice">Trello directory approval is in progress. Members of the developer workspace can already install and test the Power-Up.</p><p><a href="./setup.txt">Open the plain-text guide ↗</a></p></div>
+      <ol class="steps"><li><strong>Add it to a board</strong>After approval, find “Productivity” by Timo Leiser in Trello’s Power-Up directory. During review, developer-workspace members can add it under Custom.</li>
+      <li><strong>Connect to Trello</strong>Open “Productivity” → “Manage Trello connection”. Approve read-only access so the Power-Up can read card history.</li>
+      <li><strong>Set the pace for each phase</strong>Open a list’s ⋯ menu → “Productivity · Time thresholds …”. Set green, orange and red thresholds for that list; leave a field empty to disable that color.</li></ol>
     </section>
   </main>
-  <footer class="site-footer"><span>Productivity · Ein Power-Up von Timo Leiser</span><div><a href="./privacy.html">Datenschutz</a><a href="mailto:timo@leiser.ai">Kontakt</a><span>v0.2.0</span></div></footer>
+  <footer class="site-footer"><span>Productivity · A Power-Up by Timo Leiser</span><div><a href="./privacy.html">Privacy</a><a href="mailto:timo@leiser.ai">Support</a><span>v0.3.0</span></div></footer>
 </div>
-<dialog id="settings-dialog" aria-label="Productivity ausprobieren"><div class="dialog-bar"><span>Productivity · Demo</span><button id="close-demo" aria-label="Vorschau schließen">×</button></div><iframe id="demo-frame" title="Warnschwellen ausprobieren" src="./settings.html?demo=1&amp;v=20260915-phase-colors" loading="lazy"></iframe></dialog>
-<script type="module" src="./js/landing.js?v=20260915-phase-colors"></script>
+<dialog id="settings-dialog" aria-label="Try Productivity"><div class="dialog-bar"><span>Productivity · Demo</span><button id="close-demo" aria-label="Close preview">×</button></div><iframe id="demo-frame" title="Try time thresholds" src="./settings.html?demo=1&amp;v=20260917-review" loading="lazy"></iframe></dialog>
+<script type="module" src="./js/landing.js?v=20260917-review"></script>
 </body></html>

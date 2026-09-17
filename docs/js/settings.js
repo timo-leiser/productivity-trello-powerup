@@ -1,7 +1,7 @@
-import { DEFAULT_RULE, HOUR, SETTINGS_KEY, parseThreshold, validateRule, ruleFor, unitFor, statusFor } from './domain.js?v=20260915-phase-colors';
+import { DEFAULT_RULE, HOUR, SETTINGS_KEY, parseThreshold, validateRule, ruleFor, unitFor, statusFor } from './domain.js?v=20260917-review';
 import { credentials } from './api.js';
 import { demoClient } from './demo-client.js';
-import { popupLayout, SETTINGS_POPUP_HEIGHT, AUTH_POPUP_HEIGHT } from './popup-layout.js?v=20260915-phase-colors';
+import { popupLayout, SETTINGS_POPUP_HEIGHT, AUTH_POPUP_HEIGHT } from './popup-layout.js?v=20260917-review';
 
 const demo = new URLSearchParams(location.search).get('demo') === '1';
 const t = demo ? demoClient() : window.TrelloPowerUp.iframe();
@@ -28,7 +28,7 @@ function displaySaved() {
 function preview() {
   try {
     $('preview-badge').className = `badge ${statusFor(72 * HOUR, values())}`;
-    $('form-message').textContent = dirty ? 'Noch nicht gespeichert.' : '';
+    $('form-message').textContent = dirty ? 'Not saved yet.' : '';
     $('form-message').className = 'help';
   } catch (error) {
     $('form-message').textContent = error.message;
@@ -42,10 +42,10 @@ async function init() {
   config = saved;
   writable = t.memberCanWriteToModel('board');
   $('demo-note').hidden = !demo;
-  if (!lists.length) { $('loading').textContent = 'Erstelle zuerst eine Liste auf diesem Board.'; return; }
+  if (!lists.length) { $('loading').textContent = 'Create a list on this board first.'; return; }
   const requested = t.arg('listId', '');
   const phase = lists.find(list => list.id === requested);
-  if (!phase) { $('loading').textContent = 'Öffne die gewünschte Liste über ⋯ → Productivity · Warnschwellen …'; return; }
+  if (!phase) { $('loading').textContent = 'Open the list you want through ⋯ → Productivity · Time thresholds …'; return; }
   selected = phase.id;
   $('phase-name').textContent = phase.name;
   displaySaved();
@@ -55,9 +55,9 @@ async function init() {
   for (const id of [...colors, 'save', 'reset']) $(id).disabled = !writable;
   try {
     if (!demo) await credentials(t);
-    $('connection').textContent = writable ? 'Verbunden · Gilt für diese Phase.' : 'Lesezugriff · Nur Board-Mitglieder können Änderungen speichern.';
+    $('connection').textContent = writable ? 'Connected · Applies to this phase.' : 'Read access · Only board members can save changes.';
   } catch (error) {
-    $('connection').textContent = error.code === 'setup' ? 'Einmalig einrichten: Verbinde Productivity unten mit Trello.' : 'Bitte verbinde dein Trello-Konto, um Phasenzeiten zu sehen.';
+    $('connection').textContent = error.code === 'setup' ? 'One-time setup: connect Productivity to Trello below.' : 'Connect your Trello account to see phase times.';
   }
   $('connection').hidden = false;
   resize();
@@ -81,11 +81,11 @@ $('settings-form').addEventListener('submit', async event => {
     // Read the latest board data before merging just the edited phase.
     const latest = await t.get('board', 'shared', SETTINGS_KEY, {});
     const next = { ...latest, version: 1, lists: { ...latest.lists, [listId]: rule } };
-    if (JSON.stringify({ [SETTINGS_KEY]: next }).length > 3900) throw new Error('Der Trello-Speicher für dieses Board ist voll.');
+    if (JSON.stringify({ [SETTINGS_KEY]: next }).length > 3900) throw new Error('The Trello storage for this board is full.');
     await t.set('board', 'shared', SETTINGS_KEY, next);
     config = next;
-    if (selected === listId) { dirty = false; $('form-message').textContent = 'Gespeichert. Karten aktualisieren sich in Kürze.'; $('form-message').className = 'help success-text'; }
-  } catch (error) { $('form-message').textContent = error.message || 'Speichern fehlgeschlagen. Bitte erneut versuchen.'; $('form-message').className = 'error'; }
+    if (selected === listId) { dirty = false; $('form-message').textContent = 'Saved. Cards will refresh shortly.'; $('form-message').className = 'help success-text'; }
+  } catch (error) { $('form-message').textContent = error.message || 'Could not save. Try again.'; $('form-message').className = 'error'; }
   finally {
     for (const control of $('settings-form').querySelectorAll('input, select, button')) control.disabled = !writable;
     $('unit').disabled = !writable;
@@ -94,6 +94,6 @@ $('settings-form').addEventListener('submit', async event => {
 });
 $('open-auth').addEventListener('click', () => {
   if (demo) { location.href = './authorize.html?demo=1'; return; }
-  t.popup({ title: 'Productivity verbinden', url: './authorize.html?v=20260915-phase-colors', height: AUTH_POPUP_HEIGHT });
+  Promise.resolve(t.popup({ title: 'Connect Productivity', url: './authorize.html?v=20260917-review', height: AUTH_POPUP_HEIGHT })).catch(() => {});
 });
-init().catch(() => { $('loading').hidden = false; $('loading').textContent = 'Einstellungen konnten nicht geladen werden. Öffne diese Ansicht über Productivity in Trello.'; }).finally(ready);
+init().catch(() => { $('loading').hidden = false; $('loading').textContent = 'Settings could not be loaded. Open this view through Productivity in Trello.'; }).finally(ready);

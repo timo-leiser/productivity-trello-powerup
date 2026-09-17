@@ -1,8 +1,8 @@
-import { AUTH_KEY } from './domain.js?v=20260915-phase-colors';
+import { AUTH_KEY } from './domain.js?v=20260917-review';
 import { APP_KEY } from './config.js';
 import { authorizeWithPopup } from './auth-flow.js';
 import { demoClient } from './demo-client.js';
-import { popupLayout, AUTH_POPUP_HEIGHT } from './popup-layout.js?v=20260915-phase-colors';
+import { popupLayout, AUTH_POPUP_HEIGHT } from './popup-layout.js?v=20260917-review';
 
 const demo = new URLSearchParams(location.search).get('demo') === '1';
 const t = demo ? demoClient() : window.TrelloPowerUp.iframe();
@@ -12,10 +12,10 @@ const { resize, ready } = popupLayout(t, demo, AUTH_POPUP_HEIGHT);
 async function load() {
   const auth = await t.get('member', 'private', AUTH_KEY, null);
   const connected = Boolean(auth?.token && auth.appKey === APP_KEY);
-  $('auth-status').textContent = connected ? 'Dein Trello-Konto ist verbunden.' : 'Bereit zum Verbinden. Es ist kein weiteres Konto nötig.';
-  if (demo) $('auth-status').textContent = 'Demo · Die Verbindung ist hier nur eine Vorschau.';
+  $('auth-status').textContent = connected ? 'Your Trello account is connected.' : 'Ready to connect. No additional account is needed.';
+  if (demo) $('auth-status').textContent = 'Demo · The connection shown here is only a preview.';
   $('authorize').disabled = demo;
-  $('authorize').textContent = connected ? 'Erneut verbinden' : 'Mit Trello verbinden';
+  $('authorize').textContent = connected ? 'Connect again' : 'Connect to Trello';
   $('disconnect').hidden = !connected;
   resize();
 }
@@ -29,19 +29,19 @@ $('authorize').addEventListener('click', async () => {
   try {
     // Call directly from the user's click to avoid popup blockers.
     const token = await authorizeWithPopup(t, url.href);
-    if (typeof token !== 'string' || !token) throw new Error('Die Freigabe wurde nicht abgeschlossen.');
+    if (typeof token !== 'string' || !token) throw new Error('Authorization was not completed.');
     await t.set('member', 'private', AUTH_KEY, { appKey: APP_KEY, token });
     await load();
-    $('auth-status').textContent = 'Verbunden. Öffne an einer Liste ⋯ → Productivity · Warnschwellen … Phasenzeiten erscheinen in Kürze.';
-  } catch (error) { $('auth-status').textContent = error.message || 'Verbindung nicht abgeschlossen. Bitte erneut versuchen.'; }
+    $('auth-status').textContent = 'Connected. Open ⋯ → Productivity · Time thresholds … on a list. Phase times will appear shortly.';
+  } catch (error) { $('auth-status').textContent = error.message || 'Connection was not completed. Try again.'; }
   finally { $('authorize').disabled = false; resize(); }
 });
 $('disconnect').addEventListener('click', async () => {
   try {
     await t.remove('member', 'private', AUTH_KEY);
     await load();
-    $('auth-status').textContent = 'Verbindung entfernt. Die Freigabe kannst du zusätzlich unter trello.com/my/account widerrufen.';
-  } catch { $('auth-status').textContent = 'Verbindung konnte nicht entfernt werden. Bitte erneut versuchen.'; }
+    $('auth-status').textContent = 'Connection removed. You can also revoke authorization at trello.com/my/account.';
+  } catch { $('auth-status').textContent = 'The connection could not be removed. Try again.'; }
   resize();
 });
-load().catch(() => { $('auth-status').textContent = 'Öffne diese Ansicht über Productivity in deinem Trello-Board.'; }).finally(ready);
+load().catch(() => { $('auth-status').textContent = 'Open this view through Productivity in your Trello board.'; }).finally(ready);

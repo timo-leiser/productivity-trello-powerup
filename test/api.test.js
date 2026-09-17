@@ -64,7 +64,7 @@ test('revoking/changing authentication never reuses a cached authorized result',
 });
 test('network and access failures stay distinct from unknown history', async () => {
   const offline = createApi({ sleep, fetchImpl: async () => { throw new Error('network with sensitive details'); } });
-  await assert.rejects(offline.entry(client(), card), { code: 'network', message: 'Trello ist gerade nicht erreichbar.' });
+  await assert.rejects(offline.entry(client(), card), { code: 'network', message: 'Trello is currently unavailable.' });
   const forbidden = createApi({ sleep, fetchImpl: async () => ({ ok: false, status: 403 }) });
   await assert.rejects(forbidden.entry(client(), card), { code: 'access' });
   const empty = createApi({ sleep, fetchImpl: async () => ok([]) });

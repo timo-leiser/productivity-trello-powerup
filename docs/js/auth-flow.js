@@ -16,22 +16,22 @@ export function authorizeWithPopup(t, url, {
       clearInterval(poll); clearTimeout(timer);
       if (error) reject(error); else resolve(token);
     };
-    timer = timeout(() => finish(new Error('Die Anmeldung hat zu lange gedauert. Bitte erneut verbinden.')), timeoutMs);
+    timer = timeout(() => finish(new Error('Authorization took too long. Try connecting again.')), timeoutMs);
     try {
       // Keep this synchronous with the user click so browsers allow the popup.
       const pending = t.authorize(url, {
         width: 600, height: 740,
         windowCallback(popup) {
           if (!popup) {
-            finish(new Error('Das Anmeldefenster wurde blockiert. Bitte Pop-ups erlauben oder Trello in einem normalen Browser öffnen.'));
+            finish(new Error('The authorization window was blocked. Allow pop-ups or open Trello in a regular browser.'));
             return;
           }
           poll = interval(() => {
-            if (popup.closed) finish(new Error('Das Anmeldefenster wurde geschlossen. Du kannst die Verbindung erneut starten.'));
+            if (popup.closed) finish(new Error('The authorization window was closed. You can start the connection again.'));
           }, 500);
         },
       });
-      Promise.resolve(pending).then(token => finish(null, token), () => finish(new Error('Die Trello-Freigabe wurde nicht abgeschlossen. Bitte erneut versuchen.')));
-    } catch { finish(new Error('Das Anmeldefenster konnte nicht geöffnet werden. Bitte erneut versuchen.')); }
+      Promise.resolve(pending).then(token => finish(null, token), () => finish(new Error('Trello authorization was not completed. Try again.')));
+    } catch { finish(new Error('The authorization window could not be opened. Try again.')); }
   });
 }

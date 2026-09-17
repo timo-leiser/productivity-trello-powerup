@@ -1,55 +1,37 @@
-PRODUCTIVITY — ANLEITUNG
-=======================
+PRODUCTIVITY — SETUP GUIDE
+==========================
 
-Version 0.2.0 · Kostenlos · Bedienoberfläche auf Deutsch
-Öffentliche Verzeichnisfreigabe durch Trello steht noch aus.
+Version 0.3.0 · Free · English interface
+Trello directory approval is in progress.
 
-1. Nach der Freigabe: Auf deinem Board Power-Ups > Hinzufügen öffnen
-   und „Productivity“ von Timo Leiser wählen.
-   Bis zur Freigabe: Nur im Entwickler-Workspace unter Benutzerdefiniert.
+1. After approval, open Power-Ups > Add Power-Ups on your board and choose
+   “Productivity” by Timo Leiser. During review, members of the developer
+   workspace can add it under Custom.
 
-2. An einer Liste ... > Productivity · Warnschwellen ... öffnen.
-   Trello-Verbindung verwalten > Mit Trello verbinden auswählen.
-   Erlaube den Lesezugriff auf die Kartenhistorie.
-   Es ist kein API-Key und kein zusätzliches Konto nötig.
-   Der Token wird privat in Trello gespeichert und gilt bis zum Widerruf.
-   Trello erlaubt dabei das Lesen aller zugänglichen Boards; Productivity
-   lädt nur die Kartenhistorie im aktuell verwendeten Board-Kontext.
+2. Open a list’s ... menu > Productivity · Time thresholds ...
+   Choose Manage Trello connection > Connect to Trello.
+   Approve read-only access to card history.
+   No API key or separate account is needed.
+   The token is stored privately in Trello and remains valid until revoked.
+   Trello authorizes reading every board your account can access; Productivity
+   requests card history only in the board context you are currently using.
 
-3. An der gewünschten Liste ... > Productivity · Warnschwellen ... öffnen.
-   Grün / Orange / Rot in Tagen oder Stunden eintragen, dann Speichern.
-   Leeres Feld = diese Farbe aus. Alle drei leer = nur Zeit anzeigen.
-   Reihenfolge: Grün < Orange < Rot, deaktivierte Farben überspringen.
-   Standard für neue Phasen: Grün ab 0, Orange ab 2, Rot ab 5 Tagen.
-   Bei vorhandenen Einstellungen bleibt Grün aus, bis du es einträgst.
-   Einstellungen gelten gemeinsam für alle Mitglieder des Boards.
+3. Open the desired list’s ... menu > Productivity · Time thresholds ...
+   Enter green, orange and red thresholds in days or hours, then choose Save.
+   Empty field = that color is off. All three empty = show time without color.
+   Enabled thresholds must increase in this order: green < orange < red.
+   Defaults for a new phase: green from 0, orange from 2 and red from 5 days.
+   Existing saved settings keep green off until you configure it.
+   Settings are shared by everyone on the board.
 
-SUPPORT UND DATENSCHUTZ
+HOW TIME IS MEASURED
+- Every Trello list is treated as one workflow phase.
+- Time starts at the most recent recorded entry into the current list.
+- Moving a card back to a previous list starts a new stay.
+- Comments, card edits and reordering within a list do not restart the timer.
+- Calendar time includes nights and weekends and continues while Trello is closed.
+- If Trello history cannot prove the entry time, Productivity shows “Phase time unknown”.
+
+SUPPORT AND PRIVACY
 Timo Leiser · timo@leiser.ai
 https://timo-leiser.github.io/productivity-trello-powerup/privacy.html
-
-WIE DIE ZEIT GEZÄHLT WIRD
-- Jede Trello-Liste ist eine Phase.
-- Es zählt der aktuelle zusammenhängende Aufenthalt seit dem letzten Eintritt.
-- Beim Zurückschieben in eine frühere Liste beginnt ein neuer Aufenthalt.
-- Kalenderzeit inklusive Nächte/Wochenenden. 1 Tag = 24 Stunden.
-- Zeit läuft auch bei geschlossenem Board weiter.
-- Archivierung/Abschluss pausiert die Zeit nicht; Karten in archivierten Listen
-  oder archivierte Karten sind nicht auf dem offenen Board sichtbar.
-- Bestehende Karten werden anhand der verfügbaren Trello-Historie berücksichtigt.
-- Fehlende/uneindeutige Historie wird als unbekannt gekennzeichnet.
-- Bei ganzen importierten/verschobenen Listen kann die ursprüngliche Historie
-  fehlen. Das Power-Up erfindet dann keinen Eintrittszeitpunkt.
-- Es werden Badge-Hintergründe grün/orange/rot, nicht die gesamte Kartenfläche.
-- Anzeige und Einstellungen werden spätestens nach ungefähr 60 Sekunden
-  aktualisiert; große Boards/Rate-Limits können die erste Anzeige verzögern.
-
-VERBINDUNG ENTFERNEN
-An einer Liste ... > Productivity · Warnschwellen ... > Trello-Verbindung verwalten > Verbindung entfernen.
-Freigabe zusätzlich unter https://trello.com/my/account widerrufen.
-
-QUELLEN
-https://developer.atlassian.com/cloud/trello/guides/power-ups/managing-apps/
-https://developer.atlassian.com/cloud/trello/power-ups/capabilities/card-badges/
-https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-authorize/
-https://developer.atlassian.com/cloud/trello/guides/rest-api/nested-resources/

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Per-list Productivity threshold settings</title>
+  <desc id="desc">A Trello-style settings panel configures green, orange and red time thresholds for the Review phase.</desc>
+  <rect width="1200" height="675" fill="#dfeafb"/>
+  <rect width="1200" height="74" fill="#0c2b4a"/>
+  <text x="32" y="45" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="22" font-weight="700" fill="#fff">Productivity · Configure each phase</text>
+  <g opacity=".72" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif">
+    <rect x="32" y="105" width="330" height="522" rx="16" fill="#f4f5f7"/><text x="54" y="146" font-size="20" font-weight="700" fill="#172b4d">Ideas</text><rect x="48" y="171" width="298" height="100" rx="10" fill="#fff"/><text x="66" y="209" font-size="17" fill="#172b4d">Plan the next workshop</text>
+    <rect x="390" y="105" width="330" height="522" rx="16" fill="#f4f5f7"/><text x="412" y="146" font-size="20" font-weight="700" fill="#172b4d">In progress</text><rect x="406" y="171" width="298" height="100" rx="10" fill="#fff"/><text x="424" y="209" font-size="17" fill="#172b4d">Apply feedback to draft</text>
+  </g>
+  <rect x="758" y="90" width="410" height="552" rx="14" fill="#fff" stroke="#0c66e4" stroke-width="3"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" fill="#172b4d">
+    <text x="788" y="132" font-size="20" font-weight="700">Productivity · Phase</text>
+    <text x="788" y="177" font-size="16">Phase: <tspan font-weight="700">Review</tspan></text>
+    <text x="788" y="219" font-size="14" font-weight="700">Time unit</text><rect x="788" y="231" width="350" height="44" rx="5" fill="#fff" stroke="#8590a2"/><text x="804" y="259" font-size="16">Days</text><path d="M1117 248l7 7 7-7" fill="none" stroke="#44546f" stroke-width="2"/>
+    <circle cx="794" cy="309" r="5" fill="#22a06b"/><text x="806" y="315" font-size="14" font-weight="700">Green from</text>
+    <circle cx="916" cy="309" r="5" fill="#b65c02"/><text x="928" y="315" font-size="14" font-weight="700">Orange from</text>
+    <circle cx="1041" cy="309" r="5" fill="#c9372c"/><text x="1053" y="315" font-size="14" font-weight="700">Red from</text>
+    <rect x="788" y="329" width="105" height="44" rx="5" fill="#fff" stroke="#8590a2"/><text x="804" y="357" font-size="16">0</text>
+    <rect x="911" y="329" width="105" height="44" rx="5" fill="#fff" stroke="#8590a2"/><text x="927" y="357" font-size="16">2</text>
+    <rect x="1033" y="329" width="105" height="44" rx="5" fill="#fff" stroke="#8590a2"/><text x="1049" y="357" font-size="16">5</text>
+    <text x="788" y="400" font-size="13" fill="#44546f">Empty = color off. 1 day = 24 hours.</text>
+    <text x="788" y="447" font-size="14" fill="#44546f">Example after 3 days</text><rect x="1028" y="423" width="110" height="34" rx="6" fill="#fff7d6"/><circle cx="1045" cy="440" r="7" fill="none" stroke="#974f0c" stroke-width="2"/><path d="M1045 435v6l4 2" fill="none" stroke="#974f0c" stroke-width="2" stroke-linecap="round"/><text x="1061" y="446" font-size="15" font-weight="700" fill="#974f0c">3 d 0 hr</text>
+    <rect x="788" y="486" width="78" height="42" rx="5" fill="#0c66e4"/><text x="810" y="513" font-size="15" font-weight="700" fill="#fff">Save</text>
+    <rect x="878" y="486" width="140" height="42" rx="5" fill="#091e420f"/><text x="898" y="513" font-size="15">Restore defaults</text>
+    <path d="M788 555h350" stroke="#dfe1e6"/><text x="788" y="584" font-size="13" fill="#44546f">Connected · Applies to this phase.</text><text x="788" y="612" font-size="13" fill="#0c66e4">Manage Trello connection</text>
+  </g>
+</svg>

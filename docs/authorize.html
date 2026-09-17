@@ -1,16 +1,16 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="referrer" content="no-referrer">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://p.trellocdn.com; style-src 'self' 'unsafe-inline' https://p.trellocdn.com; img-src 'self' data:; connect-src https://api.trello.com; object-src 'none'; base-uri 'none'">
-  <title>Trello verbinden · Productivity</title><link rel="stylesheet" href="https://p.trellocdn.com/power-up.min.css"><link rel="stylesheet" href="./css/popup.css?v=20260915-phase-colors">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://p.trellocdn.com; style-src 'self' 'unsafe-inline' https://p.trellocdn.com; img-src 'self' data:; connect-src https://api.trello.com; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Connect Trello · Productivity</title><link rel="stylesheet" href="https://p.trellocdn.com/power-up.min.css"><link rel="stylesheet" href="./css/popup.css?v=20260917-review">
 </head>
 <body class="popup"><main id="app">
-  <p class="auth-intro">Verbinde Trello, um die Zeit seit dem letzten Listenwechsel einer Karte anzuzeigen.</p>
-  <p id="auth-status" role="status" aria-live="polite">Verbindung wird geprüft …</p>
-  <div class="actions"><button id="authorize" class="mod-primary" disabled>Mit Trello verbinden</button><button id="disconnect" hidden>Verbindung entfernen</button></div>
-  <p class="help auth-scope">Nur Lesezugriff, bis zum Widerruf. Trello gewährt Lesen auf alle für dein Konto zugänglichen Boards. Productivity lädt nur die Kartenhistorie des geöffneten Boards.</p>
-  <details><summary>Welche Daten werden gespeichert?</summary><p class="help">Warnschwellen bleiben als Power-Up-Einstellungen in Trello. Karten werden nicht verändert. Karteninhalte werden nicht an eigene Server oder GitHub übertragen.</p></details>
-  <footer class="help"><a href="./privacy.html" target="_blank" rel="noopener noreferrer">Datenschutz</a> · <a href="https://trello.com/my/account" target="_blank" rel="noopener noreferrer">Freigabe widerrufen</a> · <a href="mailto:timo@leiser.ai">Support</a></footer>
-</main><script src="https://p.trellocdn.com/power-up.min.js"></script><script type="module" src="./js/authorize.js?v=20260915-phase-colors"></script></body>
+  <p class="auth-intro">Connect Trello to show how long each card has been in its current list.</p>
+  <p id="auth-status" role="status" aria-live="polite">Checking your connection …</p>
+  <div class="actions"><button id="authorize" class="mod-primary" disabled>Connect to Trello</button><button id="disconnect" hidden>Remove connection</button></div>
+  <p class="help auth-scope">Read-only access until revoked. Trello grants access to all boards your account can read; Productivity requests card history only for the board you are viewing.</p>
+  <details><summary>What data is stored?</summary><p class="help">Thresholds remain in Trello as shared Power-Up settings. Cards are never changed. Card content is not sent to our own servers or to GitHub.</p></details>
+  <footer class="help"><a href="./privacy.html" target="_blank" rel="noopener noreferrer">Privacy</a> · <a href="https://trello.com/my/account" target="_blank" rel="noopener noreferrer">Revoke access</a> · <a href="mailto:timo@leiser.ai">Support</a></footer>
+</main><script src="https://p.trellocdn.com/power-up.min.js"></script><script type="module" src="./js/authorize.js?v=20260917-review"></script></body>
 </html>

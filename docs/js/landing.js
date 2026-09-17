@@ -1,4 +1,4 @@
-import { HOUR, formatDuration, ruleFor, statusFor } from './domain.js?v=20260915-phase-colors';
+import { HOUR, formatDuration, ruleFor, statusFor } from './domain.js?v=20260917-review';
 const dialog = document.getElementById('settings-dialog');
 function render() {
   let settings = {};
@@ -8,7 +8,7 @@ function render() {
     badge.textContent = formatDuration(elapsed);
     const state = statusFor(elapsed, ruleFor(settings, badge.dataset.list));
     badge.className = `badge ${state}`;
-    badge.setAttribute('aria-label', `${formatDuration(elapsed)} in dieser Phase · ${state === 'red' ? 'Aufmerksamkeit' : state === 'orange' ? 'Nachfassen' : 'Im Zeitrahmen'}`);
+    badge.setAttribute('aria-label', `${formatDuration(elapsed)} in this phase · ${state === 'red' ? 'Needs attention' : state === 'orange' ? 'Follow up' : 'On track'}`);
   }
 }
 document.getElementById('demo-settings').addEventListener('click', () => dialog.showModal());

@@ -26,23 +26,23 @@ export function parseThreshold(value, unit = 'hours') {
   const number = Number(String(value).replace(',', '.'));
   const hours = number * (unit === 'days' ? 24 : 1);
   if (!Number.isFinite(hours) || hours < 0 || hours > 876_000) {
-    throw new Error('Bitte eine Zeit zwischen 0 und 876.000 Stunden eingeben.');
+    throw new Error('Enter a time between 0 and 876,000 hours.');
   }
   return hours;
 }
 
 export function validateRule(rule) {
   for (const value of [rule.green ?? null, rule.orange, rule.red]) {
-    if (value !== null && validHours(value) === null) throw new Error('Bitte gültige Zeiten eingeben.');
+    if (value !== null && validHours(value) === null) throw new Error('Enter valid times.');
   }
   if (rule.orange !== null && rule.red !== null && rule.red <= rule.orange) {
-    throw new Error('Rot muss später beginnen als Orange.');
+    throw new Error('Red must start after orange.');
   }
   if (rule.green != null && rule.orange !== null && rule.orange <= rule.green) {
-    throw new Error('Orange muss später beginnen als Grün.');
+    throw new Error('Orange must start after green.');
   }
   if (rule.green != null && rule.red !== null && rule.red <= rule.green) {
-    throw new Error('Rot muss später beginnen als Grün.');
+    throw new Error('Red must start after green.');
   }
   return rule;
 }
@@ -56,11 +56,11 @@ export function statusFor(elapsedMs, rule) {
 
 export function formatDuration(ms) {
   const minutes = Math.max(0, Math.floor(ms / 60_000));
-  if (minutes < 1) return '< 1 Min.';
-  if (minutes < 60) return `${minutes} Min.`;
+  if (minutes < 1) return '< 1 min';
+  if (minutes < 60) return `${minutes} min`;
   const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours} Std. ${minutes % 60} Min.`;
-  return `${Math.floor(hours / 24)} T. ${hours % 24} Std.`;
+  if (hours < 24) return `${hours} hr ${minutes % 60} min`;
+  return `${Math.floor(hours / 24)} d ${hours % 24} hr`;
 }
 
 // Only a recorded entry into the current list is proof of its start time.
@@ -83,7 +83,7 @@ export function findListEntry(actions, card) {
 }
 
 export function badgeFor(entry, rule, now = Date.now()) {
-  if (!entry) return { text: 'Phasenzeit unbekannt', color: 'light-gray' };
+  if (!entry) return { text: 'Phase time unknown', color: 'light-gray' };
   const elapsed = Math.max(0, now - entry.enteredAt);
   const status = statusFor(elapsed, rule);
   return { text: formatDuration(elapsed), color: status === 'normal' ? 'light-gray' : status };
