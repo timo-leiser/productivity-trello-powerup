@@ -6,10 +6,10 @@ Support: timo@leiser.ai
 Price: Free
 Interface: English
 Categories: Board utilities; Analytics & reporting
-Connector: https://timo-leiser.github.io/productivity-trello-powerup/connector.html
-Privacy: https://timo-leiser.github.io/productivity-trello-powerup/privacy.html
-Website: https://timo-leiser.github.io/productivity-trello-powerup/
-Icon: https://timo-leiser.github.io/productivity-trello-powerup/assets/mark.svg
+Connector: https://productivity-trello-powerup.pages.dev/connector
+Privacy: https://productivity-trello-powerup.pages.dev/privacy
+Website: https://productivity-trello-powerup.pages.dev/
+Icon: https://productivity-trello-powerup.pages.dev/assets/mark.svg
 
 OVERVIEW
 See how long every card has been in its current list, with color thresholds tailored to each phase.
@@ -19,13 +19,13 @@ DESCRIPTION
 
 Productivity adds a live time badge to every Trello card. At a glance, your team can see how long a card has stayed in its current list and which work needs attention.
 
-![Elapsed-time badges on a sample board](https://timo-leiser.github.io/productivity-trello-powerup/assets/listing-board.png)
+![Elapsed-time badges on a sample board](https://productivity-trello-powerup.pages.dev/assets/listing-board.png)
 
 ## Set the pace for every phase
 
 Open a list’s **…** menu and choose **Productivity · Time thresholds …**. Set independent green, orange and red thresholds in hours or days. Each list keeps its own settings, so an Ideas list can use a different pace from Review or In progress.
 
-![Per-list green, orange and red thresholds](https://timo-leiser.github.io/productivity-trello-powerup/assets/listing-settings.png)
+![Per-list green, orange and red thresholds](https://productivity-trello-powerup.pages.dev/assets/listing-settings.png)
 
 ### What you get
 

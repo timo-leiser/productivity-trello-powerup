@@ -34,4 +34,4 @@ HOW TIME IS MEASURED
 
 SUPPORT AND PRIVACY
 Timo Leiser · timo@leiser.ai
-https://timo-leiser.github.io/productivity-trello-powerup/privacy.html
+https://productivity-trello-powerup.pages.dev/privacy

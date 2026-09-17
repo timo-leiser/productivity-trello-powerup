@@ -2,9 +2,9 @@
 
 Productivity shows how long every card has been in its **current Trello list**, with green, orange and red time thresholds configurable per list. The interface is in English. Static HTML, CSS and ES modules are published from `docs/`.
 
-- [Live demo and setup](https://timo-leiser.github.io/productivity-trello-powerup/)
-- [Plain-text setup guide](https://timo-leiser.github.io/productivity-trello-powerup/setup.txt)
-- Connector: `https://timo-leiser.github.io/productivity-trello-powerup/connector.html`
+- [Live demo and setup](https://productivity-trello-powerup.pages.dev/)
+- [Plain-text setup guide](https://productivity-trello-powerup.pages.dev/setup.txt)
+- Connector: `https://productivity-trello-powerup.pages.dev/connector`
 
 ## Features
 
@@ -39,7 +39,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/github.ps1 repo 
 
 ## Publishing
 
-GitHub Pages publishes `main /docs` and remains the canonical public source. A header-capable deployment must also honor `docs/_headers` for the Trello connector because GitHub Pages does not apply custom response headers.
+Cloudflare Pages deploys `main /docs` to the production hostname and applies the security headers in `docs/_headers`. GitHub remains the source repository; its Pages deployment is only a mirror because GitHub Pages does not apply custom response headers.
 
 Before publishing a change:
 

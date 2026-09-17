@@ -8,11 +8,23 @@
 /connector.html
   Cache-Control: no-store
 
+/connector
+  Cache-Control: no-store
+
 /settings.html
+  Cache-Control: no-store
+
+/settings
   Cache-Control: no-store
 
 /authorize.html
   Cache-Control: no-store
 
+/authorize
+  Cache-Control: no-store
+
 /auth-callback.html
+  Cache-Control: no-store
+
+/auth-callback
   Cache-Control: no-store
