@@ -1,7 +1,7 @@
-import { DEFAULT_RULE, HOUR, SETTINGS_KEY, parseThreshold, validateRule, ruleFor, unitFor, statusFor } from './domain.js?v=20260917-review';
-import { credentials } from './api.js';
+import { DEFAULT_RULE, HOUR, SETTINGS_KEY, parseThreshold, validateRule, ruleFor, unitFor, statusFor } from './domain.js?v=20260925-review2';
+import { credentials } from './api.js?v=20260925-review2';
 import { demoClient } from './demo-client.js';
-import { popupLayout, SETTINGS_POPUP_HEIGHT, AUTH_POPUP_HEIGHT } from './popup-layout.js?v=20260917-review';
+import { popupLayout, SETTINGS_POPUP_HEIGHT, AUTH_POPUP_HEIGHT } from './popup-layout.js?v=20260925-review2';
 
 const demo = new URLSearchParams(location.search).get('demo') === '1';
 const t = demo ? demoClient() : window.TrelloPowerUp.iframe();
@@ -84,7 +84,7 @@ $('settings-form').addEventListener('submit', async event => {
     if (JSON.stringify({ [SETTINGS_KEY]: next }).length > 3900) throw new Error('The Trello storage for this board is full.');
     await t.set('board', 'shared', SETTINGS_KEY, next);
     config = next;
-    if (selected === listId) { dirty = false; $('form-message').textContent = 'Saved. Cards will refresh shortly.'; $('form-message').className = 'help success-text'; }
+    if (selected === listId) { dirty = false; $('form-message').textContent = 'Saved. Badges refresh within one minute.'; $('form-message').className = 'help success-text'; }
   } catch (error) { $('form-message').textContent = error.message || 'Could not save. Try again.'; $('form-message').className = 'error'; }
   finally {
     for (const control of $('settings-form').querySelectorAll('input, select, button')) control.disabled = !writable;
@@ -94,6 +94,6 @@ $('settings-form').addEventListener('submit', async event => {
 });
 $('open-auth').addEventListener('click', () => {
   if (demo) { location.href = './authorize.html?demo=1'; return; }
-  Promise.resolve(t.popup({ title: 'Connect Productivity', url: './authorize.html?v=20260917-review', height: AUTH_POPUP_HEIGHT })).catch(() => {});
+  Promise.resolve(t.popup({ title: 'Connect Productivity', url: './authorize.html?v=20260925-review2', height: AUTH_POPUP_HEIGHT })).catch(() => {});
 });
 init().catch(() => { $('loading').hidden = false; $('loading').textContent = 'Settings could not be loaded. Open this view through Productivity in Trello.'; }).finally(ready);

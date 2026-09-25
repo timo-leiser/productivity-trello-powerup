@@ -1,9 +1,9 @@
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://p.trellocdn.com; style-src 'self' 'unsafe-inline' https://p.trellocdn.com; img-src 'self' data:; connect-src https://api.trello.com; frame-src 'self'; frame-ancestors https://trello.com https://*.trello.com; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://p.trellocdn.com; style-src 'self' 'unsafe-inline' https://p.trellocdn.com; img-src 'self' data:; connect-src https://api.trello.com https://p.trellocdn.com; frame-src 'self'; frame-ancestors https://trello.com https://*.trello.com; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests
   Strict-Transport-Security: max-age=31536000
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer
-  Permissions-Policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+  Permissions-Policy: camera=(), geolocation=(), microphone=(), payment=(), usb=(), unload=(self)
 
 /connector.html
   Cache-Control: no-store

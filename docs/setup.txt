@@ -1,7 +1,7 @@
 PRODUCTIVITY — SETUP GUIDE
 ==========================
 
-Version 0.3.0 · Free · English interface
+Version 0.3.1 · Free · English interface
 Trello directory approval is in progress.
 
 1. After approval, open Power-Ups > Add Power-Ups on your board and choose
@@ -14,7 +14,7 @@ Trello directory approval is in progress.
    No API key or separate account is needed.
    The token is stored privately in Trello and remains valid until revoked.
    Trello authorizes reading every board your account can access; Productivity
-   requests card history only in the board context you are currently using.
+   requests card and board history only in the board context you are using.
 
 3. Open the desired list’s ... menu > Productivity · Time thresholds ...
    Enter green, orange and red thresholds in days or hours, then choose Save.
@@ -30,7 +30,8 @@ HOW TIME IS MEASURED
 - Moving a card back to a previous list starts a new stay.
 - Comments, card edits and reordering within a list do not restart the timer.
 - Calendar time includes nights and weekends and continues while Trello is closed.
-- If Trello history cannot prove the entry time, Productivity shows “Phase time unknown”.
+- Creation, copy and board-copy events count as recorded list entries.
+- If Trello history cannot prove the entry time, Productivity asks you to move the card to another list and back once to start its timer.
 
 SUPPORT AND PRIVACY
 Timo Leiser · timo@leiser.ai

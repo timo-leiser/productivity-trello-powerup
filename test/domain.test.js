@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { HOUR, DEFAULT_RULE, ruleFor, unitFor, parseThreshold, validateRule, statusFor, formatDuration, findListEntry, badgeFor } from '../docs/js/domain.js';
+import { HOUR, DEFAULT_RULE, ruleFor, unitFor, parseThreshold, validateRule, statusFor, formatDuration, findListEntry, findBoardOrigin, listEntryState, badgeFor } from '../docs/js/domain.js';
 
 const card = { id: 'card-1', idList: 'doing' };
 const move = (id, date, from, to) => ({ id, type: 'updateCard', date, data: { card: { id: card.id }, listBefore: { id: from }, listAfter: { id: to } } });
@@ -70,7 +70,15 @@ test('incomplete or temporarily mismatched histories never claim an older start'
   const actions = [move('a', '2026-09-01T08:00:00Z', 'ideas', 'doing'), move('b', '2026-09-03T08:00:00Z', 'doing', 'review')];
   assert.equal(findListEntry(actions, card), null);
   assert.equal(findListEntry([{ id: 'board-move', type: 'moveCardToBoard', date: '2026-09-05T00:00:00Z', data: {} }, ...actions], card), null);
-  assert.equal(badgeFor(null, DEFAULT_RULE).text, 'Phase time unknown');
+  assert.equal(badgeFor(null, DEFAULT_RULE).text, 'Move card to start timer');
+});
+
+test('board actions recover origins that card-nested actions omit', () => {
+  const created = { id: 'created', type: 'createCard', date: '2026-09-01T08:00:00Z', data: { card: { id: card.id }, list: { id: card.idList } } };
+  assert.equal(findBoardOrigin([created], card).actionId, 'created');
+  const copiedBoard = { id: 'board-copy', type: 'copyBoard', date: '2026-08-01T08:00:00Z', data: {} };
+  assert.equal(findBoardOrigin([copiedBoard], card).source, 'copyBoard');
+  assert.deepEqual(listEntryState([{ ...created, data: { ...created.data, card: { id: 'other' } } }], card), { recorded: false, entry: null });
 });
 test('the same timestamp uses the latest action ID and ignores another card', () => {
   const actions = [move('b', '2026-09-01T08:00:00Z', 'review', 'doing'), move('a', '2026-09-01T08:00:00Z', 'doing', 'review'), { ...move('c', '2026-09-02T08:00:00Z', 'doing', 'review'), data: { card: { id: 'other' }, listAfter: { id: 'review' } } }];

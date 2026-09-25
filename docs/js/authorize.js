@@ -1,8 +1,8 @@
-import { AUTH_KEY } from './domain.js?v=20260917-review';
+import { AUTH_KEY } from './domain.js?v=20260925-review2';
 import { APP_KEY } from './config.js';
 import { authorizeWithPopup } from './auth-flow.js';
 import { demoClient } from './demo-client.js';
-import { popupLayout, AUTH_POPUP_HEIGHT } from './popup-layout.js?v=20260917-review';
+import { popupLayout, AUTH_POPUP_HEIGHT } from './popup-layout.js?v=20260925-review2';
 
 const demo = new URLSearchParams(location.search).get('demo') === '1';
 const t = demo ? demoClient() : window.TrelloPowerUp.iframe();

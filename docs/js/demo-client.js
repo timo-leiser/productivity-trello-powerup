@@ -1,4 +1,4 @@
-import { SETTINGS_KEY } from './domain.js?v=20260917-review';
+import { SETTINGS_KEY } from './domain.js?v=20260925-review2';
 export function demoClient() {
   const store = new Map();
   try { store.set(SETTINGS_KEY, JSON.parse(localStorage.getItem('productivity-demo') || '{}')); } catch { /* A blocked demo store remains usable in memory. */ }

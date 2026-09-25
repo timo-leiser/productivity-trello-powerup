@@ -1,4 +1,4 @@
-import { HOUR, formatDuration, ruleFor, statusFor } from './domain.js?v=20260917-review';
+import { HOUR, formatDuration, ruleFor, statusFor } from './domain.js?v=20260925-review2';
 const dialog = document.getElementById('settings-dialog');
 function render() {
   let settings = {};

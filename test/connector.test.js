@@ -14,13 +14,21 @@ test('registers all documented capabilities and returns dynamic badge descriptor
   assert.ok(Array.isArray(handlers['list-actions']({})));
 });
 test('unauthorized badge guides setup and never starts an API request', async () => {
-  const t = { card: async () => ({ id: 'card', idList: 'list' }), get: async () => ({}) };
+  const t = { card: async () => ({ id: 'card', idList: 'list' }), board: async () => ({ id: 'board' }), get: async () => ({}) };
   const badge = await handlers['card-badges'](t)[0].dynamic();
   assert.equal(badge.text, 'Connect Productivity');
   assert.equal(badge.refresh, 60);
   const detail = await handlers['card-detail-badges'](t)[0].dynamic();
   assert.equal(detail.title, 'Productivity');
   assert.equal(typeof detail.callback, 'function');
+});
+test('a stalled badge answers before Trello times out and requests a fast refresh', async () => {
+  const pending = new Promise(() => {});
+  const started = Date.now();
+  const badge = await handlers['card-badges']({ card: () => pending, board: () => pending, get: () => pending })[0].dynamic();
+  assert.equal(badge.text, 'Loading phase time…');
+  assert.equal(badge.refresh, 10);
+  assert.ok(Date.now() - started < 1500);
 });
 test('list menu opens exactly the selected phase', async () => {
   let popup;
@@ -57,12 +65,14 @@ test('UI callbacks finish without waiting for Trello popup and modal promises', 
     lists: async () => [{ id: 'phase', name: 'Phase' }],
     popup: value => { popup = value; return pending; },
     modal: () => pending,
+    card: () => pending,
   };
   assert.equal(handlers['list-actions'](t)[0].callback(t), undefined);
   assert.equal(popup.args.listId, 'phase');
   assert.equal(await handlers['show-settings'](t), undefined);
   assert.equal(handlers['show-authorization'](t), undefined);
   assert.equal(handlers['on-enable'](t), undefined);
+  assert.equal(handlers['card-buttons'](t)[0].callback(t), undefined);
 });
 test('authorization status only accepts a token for the current key', async () => {
   const t = { get: async (_scope, _visibility, key) => key === SETTINGS_KEY ? { appKey: 'a' } : { appKey: 'b', token: 'test' } };

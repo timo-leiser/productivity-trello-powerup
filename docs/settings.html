@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="no-referrer">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://p.trellocdn.com; style-src 'self' 'unsafe-inline' https://p.trellocdn.com; img-src 'self' data:; connect-src https://api.trello.com; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://p.trellocdn.com; style-src 'self' 'unsafe-inline' https://p.trellocdn.com; img-src 'self' data:; connect-src https://api.trello.com https://p.trellocdn.com; object-src 'none'; base-uri 'none'; form-action 'none'">
   <title>Configure phase · Productivity</title>
   <link rel="stylesheet" href="https://p.trellocdn.com/power-up.min.css">
-  <link rel="stylesheet" href="./css/popup.css?v=20260917-review">
+  <link rel="stylesheet" href="./css/popup.css?v=20260925-review2">
 </head>
 <body class="popup">
   <main id="app">
@@ -29,10 +29,10 @@
     <footer>
       <p id="connection" class="help" hidden></p>
       <button id="open-auth" class="link-button" type="button">Manage Trello connection</button>
-      <details><summary>How is the time measured?</summary><p class="help">Time starts at the card’s last recorded entry into this list and includes weekends. Moving it back starts a new stay. Thresholds are shared by everyone on this board.</p></details>
+      <details><summary>How is the time measured?</summary><p class="help">Time starts at the card’s last recorded entry into this list and includes weekends. Creation and board-copy events count as recorded entries. If Trello has no entry event, move the card to another list and back once to start its timer. Thresholds are shared by everyone on this board.</p></details>
     </footer>
   </main>
   <script src="https://p.trellocdn.com/power-up.min.js"></script>
-  <script type="module" src="./js/settings.js?v=20260917-review"></script>
+  <script type="module" src="./js/settings.js?v=20260925-review2"></script>
 </body>
 </html>

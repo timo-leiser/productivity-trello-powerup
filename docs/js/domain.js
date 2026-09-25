@@ -65,25 +65,43 @@ export function formatDuration(ms) {
 
 // Only a recorded entry into the current list is proof of its start time.
 // Never substitute dateLastActivity, install time or the card's object-id timestamp.
-export function findListEntry(actions, card) {
+export function listEntryState(actions, card) {
   const sorted = [...actions].filter(a => Number.isFinite(Date.parse(a.date)))
     .sort((a, b) => Date.parse(b.date) - Date.parse(a.date) || (b.id ?? '').localeCompare(a.id ?? ''));
   for (const action of sorted) {
     const data = action.data ?? {};
-    if (data.card?.id && data.card.id !== card.id) continue;
+    if (data.card?.id !== card.id) continue;
     const isMove = action.type === 'updateCard' && data.listAfter?.id && data.listBefore?.id !== data.listAfter.id;
     const isOrigin = ['createCard', 'copyCard', 'convertToCardFromCheckItem', 'emailCard', 'moveCardToBoard'].includes(action.type);
     if (!isMove && !isOrigin) continue;
-    const listId = isMove ? data.listAfter.id : data.list?.id ?? data.card?.idList;
+    const listId = isMove ? data.listAfter.id : data.listAfter?.id ?? data.list?.id ?? data.card?.idList;
     // Stop at the most recent transition, even if the API/UI are briefly out of sync.
-    if (listId !== card.idList) return null;
-    return { enteredAt: Date.parse(action.date), actionId: action.id, source: action.type };
+    return {
+      recorded: true,
+      entry: listId === card.idList
+        ? { enteredAt: Date.parse(action.date), actionId: action.id, source: action.type }
+        : null,
+    };
   }
-  return null;
+  return { recorded: false, entry: null };
+}
+
+export function findListEntry(actions, card) {
+  return listEntryState(actions, card).entry;
+}
+
+// A copied board creates its cards at the copy event but does not consistently
+// expose a create/copy action through each card's nested action resource.
+export function findBoardOrigin(actions, card) {
+  const state = listEntryState(actions, card);
+  if (state.recorded) return state.entry;
+  const copy = [...actions].filter(a => a.type === 'copyBoard' && Number.isFinite(Date.parse(a.date)))
+    .sort((a, b) => Date.parse(b.date) - Date.parse(a.date) || (b.id ?? '').localeCompare(a.id ?? ''))[0];
+  return copy ? { enteredAt: Date.parse(copy.date), actionId: copy.id, source: copy.type } : null;
 }
 
 export function badgeFor(entry, rule, now = Date.now()) {
-  if (!entry) return { text: 'Phase time unknown', color: 'light-gray' };
+  if (!entry) return { text: 'Move card to start timer', color: 'light-gray' };
   const elapsed = Math.max(0, now - entry.enteredAt);
   const status = statusFor(elapsed, rule);
   return { text: formatDuration(elapsed), color: status === 'normal' ? 'light-gray' : status };
